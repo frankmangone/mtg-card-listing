@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// Packages
+import firebase from "firebase/app"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import "firebase/firestore"
+import "firebase/auth"
 
-function App() {
+// Context
+import { FirebaseContext } from "./context/FirebaseContext"
+
+// Pages
+import { LandingPage } from "./pages/LandingPage"
+
+/*
+ * Firebase initialization
+ */
+
+firebase.initializeApp({
+  apiKey: "AIzaSyAo-GahAkPobFEzdVmm-2g0si8hTvYfk9Q",
+  authDomain: "mtg-card-listing.firebaseapp.com",
+  projectId: "mtg-card-listing",
+  storageBucket: "mtg-card-listing.appspot.com",
+  messagingSenderId: "1054256646996",
+  appId: "1:1054256646996:web:b088ca0f365d8bc4f996c1",
+  measurementId: "G-Q0546K991Z",
+})
+
+const auth = firebase.auth()
+const firestore = firebase.firestore()
+
+/* App */
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <FirebaseContext.Provider value={{ auth, firestore }}>
+      <Router>
+        <Switch>
+          <Route path="/" component={LandingPage} />
+        </Switch>
+      </Router>
+    </FirebaseContext.Provider>
+  )
 }
 
-export default App;
+export default App
