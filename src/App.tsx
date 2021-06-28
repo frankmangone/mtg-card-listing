@@ -42,6 +42,7 @@ const GlobalStyle = createGlobalStyle`
     --color-primary: hsl(100, 25%, 55%);
     --color-primary-dark: hsl(100, 25%, 40%);
 
+    --color-white: hsl(0, 0%, 100%);
     --color-lightgrey: hsl(0, 0%, 95%);
     --color-grey:hsl(0, 0%, 50%);
     --color-darkgrey: hsl(0, 0%, 20%);
