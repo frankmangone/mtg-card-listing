@@ -27,28 +27,39 @@ export const SearchPage: React.FC = () => {
 
   return (
     <MainLayout>
-      <SearchBar
-        search={search}
-        setSearch={setSearch}
-        setLoading={setLoading}
-      />
-      <SearchResultsWrapper>
-        <SearchResultsCardDisplayer imagePreviewURL={imagePreviewURL} />
-        <SearchResultsList
-          loading={loading}
+      <SearchPageWrapper>
+        <SearchBar
           search={search}
-          searchResults={searchResults}
-          setImagePreviewURL={setImagePreviewURL}
+          setSearch={setSearch}
+          setLoading={setLoading}
         />
-      </SearchResultsWrapper>
+        <SearchResultsWrapper>
+          <SearchResultsCardDisplayer imagePreviewURL={imagePreviewURL} />
+          <SearchResultsList
+            loading={loading}
+            search={search}
+            searchResults={searchResults}
+            setImagePreviewURL={setImagePreviewURL}
+          />
+        </SearchResultsWrapper>
+      </SearchPageWrapper>
     </MainLayout>
   )
 }
 
+const SearchPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+`
+
 const SearchResultsWrapper = styled.div`
   display: flex;
-  margin: auto;
+  align-self: stretch;
+  justify-content: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
   margin-top: 1rem;
-  max-width: 1000px;
-  width: 100vw;
 `

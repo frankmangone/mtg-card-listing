@@ -47,7 +47,6 @@ const SearchInput = styled.input`
   background-color: var(--color-lightgrey);
   border: none;
   border-radius: 5px;
-  flex-basis: 400px;
   font-size: 1.2rem;
   outline: none;
   padding: 0.8rem;

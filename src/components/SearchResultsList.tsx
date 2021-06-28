@@ -76,7 +76,8 @@ export const SearchResultsList: React.FC<ISearchResultsListProps> = (props) => {
 const ResultsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex-basis: 500px;
+  flex-shrink: 1;
   align-items: stretch;
   margin-left: 0.5rem;
   position: relative;
@@ -92,6 +93,11 @@ const ResultItem = styled.div`
   height: 30px;
   margin-bottom: 0.5rem;
   padding: 5px 5px 5px 15px;
+  transition: all 0.1s linear;
+
+  &:hover {
+    box-shadow: 0 0 3px 1px var(--color-grey);
+  }
 `
 
 const Message = styled.div`
