@@ -17,7 +17,7 @@ export const useScryfallQuery = (props: IUseScryfallQueryProps) => {
 
     fetch(`https://api.scryfall.com/cards/search?q=${searchString}`)
       .then((response) => response.json())
-      .then((data) => setSearchResults(data.data.slice(0, 8)))
+      .then((data) => setSearchResults(data.data.slice(0, 15)))
       .catch((error) => setSearchResults([]))
       .finally(() => setLoading(false))
   }, [search, setSearchResults, setLoading])

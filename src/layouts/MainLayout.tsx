@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 // Components
 import { Navbar } from "../components/Navbar"
-
+import { FlashMessages } from "../components/FlashMessages"
 interface ILayout {
   children?: JSX.Element | JSX.Element[] | null
 }
@@ -14,6 +14,7 @@ export const MainLayout: React.FC<ILayout> = (props) => {
   return (
     <LayoutWrapper>
       <Navbar />
+      <FlashMessages />
       {children}
     </LayoutWrapper>
   )

@@ -74,9 +74,9 @@ const ResultItem = styled.div`
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
-  height: 50px;
+  height: 30px;
   margin-bottom: 0.5rem;
-  padding: 5px 15px;
+  padding: 5px 5px 5px 15px;
 `
 
 const Message = styled.div`
@@ -86,7 +86,7 @@ const Message = styled.div`
   color: var(--color-grey);
   display: flex;
   justify-content: center;
-  height: 50px;
+  height: 30px;
   padding: 5px;
 `
 

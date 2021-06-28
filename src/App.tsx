@@ -1,4 +1,5 @@
 // Packages
+import { useState } from "react"
 import { createGlobalStyle } from "styled-components"
 import firebase from "firebase/app"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
@@ -7,6 +8,10 @@ import "firebase/auth"
 
 // Context
 import { FirebaseContext } from "./context/FirebaseContext"
+import {
+  FlashMessageContext,
+  TFlashMessageWithKey,
+} from "./context/FlashMessageContext"
 
 // Pages
 import { LandingPage } from "./pages/LandingPage"
@@ -45,15 +50,19 @@ const GlobalStyle = createGlobalStyle`
 
 /* App */
 const App: React.FC = () => {
+  const [flashMessages, setFlashMessages] = useState<TFlashMessageWithKey[]>([])
+
   return (
     <FirebaseContext.Provider value={{ auth, firestore }}>
-      <GlobalStyle />
-      <Router>
-        <Switch>
-          <Route path="/" exact component={LandingPage} />
-          <Route path="/search" exact component={SearchPage} />
-        </Switch>
-      </Router>
+      <FlashMessageContext.Provider value={{ flashMessages, setFlashMessages }}>
+        <GlobalStyle />
+        <Router>
+          <Switch>
+            <Route path="/" exact component={LandingPage} />
+            <Route path="/search" exact component={SearchPage} />
+          </Switch>
+        </Router>
+      </FlashMessageContext.Provider>
     </FirebaseContext.Provider>
   )
 }
