@@ -3,10 +3,12 @@ import styled from "styled-components"
 
 // Hooks
 import { useState } from "react"
-import { useFirebase, useCollection } from "../context/FirebaseContext"
+import { useFirebase } from "../context/FirebaseContext"
+import { useCollection } from "../hooks/useCollection"
 
 // Components
-import { Button } from './Button'
+import { Button } from "./Button"
+import { FaPlus, FaMinus } from "react-icons/fa"
 
 export const AddCardForm: React.FC = () => {
   const { auth, firestore } = useFirebase()
@@ -41,16 +43,26 @@ export const AddCardForm: React.FC = () => {
 
   return (
     <Form onSubmit={saveCard}>
-      <CardNameInput value={name} onChange={(event) => setName(event.target.value)} />
+      <CardNameInput
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+      />
 
       <CardQuantityInput>
-        <Button type="button" onClick={decreaseQuantity} disabled={quantity === 1}>
-          -
-        </Button>
+        <Button
+          type="button"
+          fontSize={16}
+          onClick={decreaseQuantity}
+          disabled={quantity === 1}
+          children={<FaMinus />}
+        />
         <p>{quantity}</p>
-        <Button type="button" onClick={increaseQuantity}>
-          +
-        </Button>        
+        <Button
+          type="button"
+          fontSize={16}
+          onClick={increaseQuantity}
+          children={<FaPlus />}
+        />
       </CardQuantityInput>
 
       <Button type="submit">Agregar carta</Button>
@@ -70,24 +82,21 @@ const Form = styled.form`
 
 const CardNameInput = styled.input`
   font-size: 18px;
-  padding: 10px;
   margin-right: 20px;
+  border-radius: 5px;
+  padding: 0px 10px;
+  border: none;
+  outline: none;
 `
 
 const CardQuantityInput = styled.div`
-  border: 1px solid grey;
   margin-right: 20px;
   display: flex;
 
-  button {
-    width: 50px;
-    border: none;
-    border-radius: 0;
-    cursor: pointer;
-  }
-
   p {
-    width: 50px;
+    width: 40px;
+    font-size: 20px;
+    margin: auto;
     text-align: center;
   }
 `

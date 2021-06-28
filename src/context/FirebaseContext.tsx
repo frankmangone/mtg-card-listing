@@ -19,11 +19,6 @@ export const useFirebase = () => {
   return useContext(FirebaseContext)
 }
 
-export const useCollection = (collectionName: string) => {
-  const { firestore } = useContext(FirebaseContext)
-  return firestore.collection(collectionName)
-}
-
 export const useUser = () => {
   const { auth } = useFirebase()
   const [user] = useAuthState(auth)

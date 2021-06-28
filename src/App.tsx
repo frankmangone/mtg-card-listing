@@ -1,4 +1,5 @@
 // Packages
+import { createGlobalStyle } from "styled-components"
 import firebase from "firebase/app"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import "firebase/firestore"
@@ -9,6 +10,7 @@ import { FirebaseContext } from "./context/FirebaseContext"
 
 // Pages
 import { LandingPage } from "./pages/LandingPage"
+import { SearchPage } from "./pages/SearchPage"
 
 /*
  * Firebase initialization
@@ -27,14 +29,29 @@ firebase.initializeApp({
 const auth = firebase.auth()
 const firestore = firebase.firestore()
 
-/* App */
+/* Global Styles */
 
+const GlobalStyle = createGlobalStyle`
+  :root {
+    --color-primary-light: hsl(100, 25%, 70%);
+    --color-primary: hsl(100, 25%, 55%);
+    --color-primary-dark: hsl(100, 25%, 40%);
+
+    --color-lightgrey: hsl(0, 0%, 95%);
+    --color-grey:hsl(0, 0%, 50%);
+    --color-darkgrey: hsl(0, 0%, 20%);
+  }
+`
+
+/* App */
 const App: React.FC = () => {
   return (
     <FirebaseContext.Provider value={{ auth, firestore }}>
+      <GlobalStyle />
       <Router>
         <Switch>
-          <Route path="/" component={LandingPage} />
+          <Route path="/" exact component={LandingPage} />
+          <Route path="/search" exact component={SearchPage} />
         </Switch>
       </Router>
     </FirebaseContext.Provider>

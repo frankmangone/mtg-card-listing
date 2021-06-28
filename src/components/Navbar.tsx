@@ -24,9 +24,17 @@ export const Navbar: React.FC = () => {
 const NavbarWrapper = styled.nav`
   width: 100%;
   position: sticky;
-  background-color: orange;
+  background-color: var(--color-primary);
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  height: 50px;
+
+  p,
+  button {
+    font-size: 16px;
+    color: white;
+    padding: 0px 15px;
+  }
 `
 
 interface ISignedInNavbarProps {
@@ -44,7 +52,7 @@ const SignedInNavbar: React.FC<ISignedInNavbarProps> = (props) => {
   return (
     <>
       <p>{user.displayName}</p>
-      <button onClick={signOut}>Sign out</button>
+      <NavbarLink onClick={signOut}>Sign out</NavbarLink>
     </>
   )
 }
@@ -61,5 +69,11 @@ const SignedOutNavbar: React.FC<ISignedOutNavbarProps> = (props) => {
     auth.signInWithPopup(provider)
   }
 
-  return <button onClick={signInWithGoogle}>Sign In</button>
+  return <NavbarLink onClick={signInWithGoogle}>Sign In</NavbarLink>
 }
+
+const NavbarLink = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`

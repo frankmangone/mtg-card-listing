@@ -22,8 +22,8 @@ const getThemeColors = (theme: TTheme) => {
       }
     default:
       return {
-        mainColor: "hsl(30, 40%, 50%)",
-        hoverColor: "hsl(30, 40%, 40%)",
+        mainColor: "var(--color-grey)",
+        hoverColor: "var(--color-darkgrey)",
       }
   }
 }
@@ -92,7 +92,7 @@ interface IStyledButtonProps {
 export const StyledButton = styled.button<IStyledButtonProps>`
   background-color: ${(props) => props.backgroundColor};
   border: ${(props) => props.border};
-  border-radius: 0px;
+  border-radius: 5px;
   color: ${(props) => props.color};
   cursor: pointer;
   display: flex;
@@ -100,7 +100,7 @@ export const StyledButton = styled.button<IStyledButtonProps>`
   align-items: center;
   width: ${(props) => (props.width ? `${props.width}px` : "auto")};
   font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : "15px")};
-  padding: 10px;
+  padding: 8px;
 
   &:hover {
     background-color: ${(props) => props.backgroundColorHover};
@@ -109,7 +109,7 @@ export const StyledButton = styled.button<IStyledButtonProps>`
   }
 
   &:disabled {
-    background-color: hsl(30, 10%, 60%) !important;
+    background-color: var(--color-primary-light) !important;
     cursor: not-allowed;
   }
 `
