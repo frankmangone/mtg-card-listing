@@ -17,6 +17,7 @@ export const SearchPage: React.FC = () => {
   const [search, setSearch] = useState("")
   const [searchResults, setSearchResults] = useState([])
   const [loading, setLoading] = useState(false)
+  const [imagePreviewURL, setImagePreviewURL] = useState<string>("")
 
   useScryfallQuery({
     search,
@@ -32,11 +33,12 @@ export const SearchPage: React.FC = () => {
         setLoading={setLoading}
       />
       <SearchResultsWrapper>
-        <SearchResultsCardDisplayer />
+        <SearchResultsCardDisplayer imagePreviewURL={imagePreviewURL} />
         <SearchResultsList
           loading={loading}
           search={search}
           searchResults={searchResults}
+          setImagePreviewURL={setImagePreviewURL}
         />
       </SearchResultsWrapper>
     </MainLayout>
