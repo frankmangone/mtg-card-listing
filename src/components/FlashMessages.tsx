@@ -6,8 +6,10 @@ import { Button } from "./Button"
 import { FaTimes } from "react-icons/fa"
 
 // Hooks
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useFlashMessage } from "../context/FlashMessageContext"
+
+const AUTODESTROY_TIMEOUT = 5000 // [ms]
 
 export const FlashMessages: React.FC = () => {
   const { flashMessages } = useFlashMessage()
@@ -44,6 +46,14 @@ const FlashMessage: React.FC<IFlashMessageProps> = (props) => {
   const { removeFlashMessage } = useFlashMessage()
   const { id, text } = props
 
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    timeoutRef.current = setTimeout(() => {
+      removeFlashMessage(id)
+    }, AUTODESTROY_TIMEOUT)
+  }, [id, removeFlashMessage])
+
   const removeMessage = () => {
     removeFlashMessage(id)
   }
@@ -66,6 +76,11 @@ const FlashMessageWrapper = styled.div`
   box-shadow: 0 0 3px 1px var(--color-darkgrey);
   display: flex;
   padding: 20px 10px 20px 20px;
+  animation-name: fade;
+  animation-animation-timing-function: linear;
+  animation-duration: ${AUTODESTROY_TIMEOUT}ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 
   &:not(:last-child) {
     margin-bottom: 10px;
@@ -73,5 +88,24 @@ const FlashMessageWrapper = styled.div`
 
   p {
     margin: 0;
+  }
+
+  /* Fade animation for autodestroy */
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+
+    5% {
+      opacity: 1;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
   }
 `
