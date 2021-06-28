@@ -1,6 +1,7 @@
 // Packages
 import styled from "styled-components"
 import firebase from "firebase/app"
+import { Link } from "react-router-dom"
 
 // Hooks
 import { useAuthState } from "react-firebase-hooks/auth"
@@ -30,10 +31,37 @@ const NavbarWrapper = styled.nav`
   height: 50px;
 
   p,
+  a,
   button {
     font-size: 16px;
-    color: white;
     padding: 0px 15px;
+  }
+
+  p {
+    color: var(--color-white);
+  }
+
+  a,
+  button { 
+    transition: color 0.1s linear;
+    color: var(--color-lightgrey);
+  }
+
+  a { 
+    padding-right: 0;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  a:visited { 
+    color: var(--color-lightgrey);
+  }
+
+  a:hover,
+  button:hover { 
+    color: var(--color-white);
+    text-shadow: 0 0 2px 3px var(--color-white);
   }
 `
 
@@ -51,7 +79,11 @@ const SignedInNavbar: React.FC<ISignedInNavbarProps> = (props) => {
 
   return (
     <>
-      <p>{user.displayName}</p>
+      <LeftContent>
+        <p>{user.displayName}</p>
+        <Link to='/search'>Find cards</Link>
+        <Link to='/'>My collection</Link>
+      </LeftContent>
       <NavbarLink onClick={signOut}>Sign out</NavbarLink>
     </>
   )
@@ -76,4 +108,12 @@ const NavbarLink = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+`
+
+const LeftContent = styled.div`
+  display: flex;
+  align-items: stretch;
+  p { 
+    border-right: 1px solid var(--color-primary-dark);
+  }
 `
