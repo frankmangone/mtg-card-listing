@@ -17,11 +17,12 @@ export const SearchResultsCardDisplayer: React.FC<ICardDisplayerProps> = (
 }
 
 const CardDisplayerWrapper = styled.div`
-  border-radius: 5px;
+  border-radius: 15px;
   background-color: var(--color-lightgrey);
   flex-basis: 300px;
   flex-shrink: 0;
   height: 418.03px;
+  overflow: hidden;
 
   img {
     width: 100%;
