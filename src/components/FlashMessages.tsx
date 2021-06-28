@@ -14,10 +14,6 @@ const AUTODESTROY_TIMEOUT = 5000 // [ms]
 export const FlashMessages: React.FC = () => {
   const { flashMessages } = useFlashMessage()
 
-  useEffect(() => {
-    console.log(flashMessages)
-  }, [flashMessages])
-
   return (
     <FlashMessagesWrapper>
       {flashMessages.map((message) => (

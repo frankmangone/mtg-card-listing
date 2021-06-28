@@ -9,15 +9,21 @@ import { LoadSpinner } from "./LoadSpinner"
 // Hooks
 import { useHandleCards } from "../hooks/useHandleCards"
 
+interface ISearchResult {
+  id: string
+  name: string
+  image_uris: { small: string; normal: string; large: string }
+  // TODO: Expand this as needed
+}
 interface ISearchResultsListProps {
   loading: boolean
   search: string
-  searchResults: any[] // TODO: Better typing
+  searchResults: ISearchResult[]
+  setImagePreviewURL: React.Dispatch<string>
 }
 
 export const SearchResultsList: React.FC<ISearchResultsListProps> = (props) => {
-  const { loading, search, searchResults } = props
-
+  const { loading, search, searchResults, setImagePreviewURL } = props
   const { saveCard } = useHandleCards()
 
   return (
@@ -41,7 +47,15 @@ export const SearchResultsList: React.FC<ISearchResultsListProps> = (props) => {
 
       {/* Show results */}
       {searchResults.map((searchResult) => (
-        <ResultItem key={searchResult.id}>
+        <ResultItem
+          key={searchResult.id}
+          onMouseEnter={() => {
+            setImagePreviewURL(searchResult.image_uris.normal)
+          }}
+          onMouseLeave={() => {
+            setImagePreviewURL("")
+          }}
+        >
           <p>{searchResult.name}</p>
           <Button
             children={<FaPlus />}
@@ -72,6 +86,7 @@ const ResultItem = styled.div`
   align-items: center;
   background-color: var(--color-lightgrey);
   border-radius: 5px;
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   height: 30px;
