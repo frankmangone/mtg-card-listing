@@ -2,19 +2,12 @@
 import styled from "styled-components"
 
 // Components
-import { FaPlus } from "react-icons/fa"
-import { Button } from "./Button"
 import { LoadSpinner } from "./LoadSpinner"
+import { SearchResultItem } from "./SearchResultItem"
 
-// Hooks
-import { useHandleCards } from "../hooks/useHandleCards"
+// Types
+import { ISearchResult } from "./SearchResultItem"
 
-interface ISearchResult {
-  id: string
-  name: string
-  image_uris: { small: string; normal: string; large: string }
-  // TODO: Expand this as needed
-}
 interface ISearchResultsListProps {
   loading: boolean
   search: string
@@ -24,7 +17,6 @@ interface ISearchResultsListProps {
 
 export const SearchResultsList: React.FC<ISearchResultsListProps> = (props) => {
   const { loading, search, searchResults, setImagePreviewURL } = props
-  const { saveCard } = useHandleCards()
 
   return (
     <ResultsWrapper>
@@ -46,29 +38,14 @@ export const SearchResultsList: React.FC<ISearchResultsListProps> = (props) => {
       )}
 
       {/* Show results */}
-      {searchResults.map((searchResult) => (
-        <ResultItem
-          key={searchResult.id}
-          onMouseEnter={() => {
-            setImagePreviewURL(searchResult.image_uris.normal)
-          }}
-          onMouseLeave={() => {
-            setImagePreviewURL("")
-          }}
-        >
-          <p>{searchResult.name}</p>
-          <Button
-            children={<FaPlus />}
-            styling="transparent"
-            onClick={() =>
-              saveCard({
-                name: searchResult.name,
-                quantity: 1,
-              })
-            }
+      {searchResults.map((searchResult) => {
+        return (
+          <SearchResultItem
+            key={searchResult.id}
+            {...{ searchResult, setImagePreviewURL }}
           />
-        </ResultItem>
-      ))}
+        )
+      })}
     </ResultsWrapper>
   )
 }
@@ -81,23 +58,6 @@ const ResultsWrapper = styled.div`
   align-items: stretch;
   margin-left: 0.5rem;
   position: relative;
-`
-
-const ResultItem = styled.div`
-  align-items: center;
-  background-color: var(--color-lightgrey);
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  height: 30px;
-  margin-bottom: 0.5rem;
-  padding: 5px 5px 5px 15px;
-  transition: all 0.1s linear;
-
-  &:hover {
-    box-shadow: 0 0 3px 1px var(--color-grey);
-  }
 `
 
 const Message = styled.div`
