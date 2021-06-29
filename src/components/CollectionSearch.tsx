@@ -10,7 +10,7 @@ import { useCollection } from "../hooks/useCollection"
 import { Button } from "./Button"
 import { FaPlus, FaMinus } from "react-icons/fa"
 
-export const AddCardForm: React.FC = () => {
+export const CollectionSearch: React.FC = () => {
   const { auth, firestore } = useFirebase()
   const cardsCollection = useCollection("cards")
 

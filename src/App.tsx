@@ -14,7 +14,7 @@ import {
 } from "./context/FlashMessageContext"
 
 // Pages
-import { LandingPage } from "./pages/LandingPage"
+import { CollectionPage } from "./pages/CollectionPage"
 import { SearchPage } from "./pages/SearchPage"
 
 /*
@@ -59,7 +59,7 @@ const App: React.FC = () => {
         <GlobalStyle />
         <Router>
           <Switch>
-            <Route path="/" exact component={LandingPage} />
+            <Route path="/" exact component={CollectionPage} />
             <Route path="/search" exact component={SearchPage} />
           </Switch>
         </Router>
