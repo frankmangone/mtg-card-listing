@@ -3,9 +3,9 @@ import styled from "styled-components"
 
 // Components
 import { Button } from "./Button"
-import { FaPlus, FaMinus, FaTimes } from "react-icons/fa"
+import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa"
 
-interface ICardItemProps {
+interface ICollectionCardItemProps {
   key: string
   name: string
   quantity: number
@@ -14,7 +14,9 @@ interface ICardItemProps {
   deleteCard: () => void
 }
 
-export const CardItem: React.FC<ICardItemProps> = (props) => {
+export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
+  props
+) => {
   const {
     name,
     quantity,
@@ -28,22 +30,25 @@ export const CardItem: React.FC<ICardItemProps> = (props) => {
       <CardInner>
         <CardName>{name}</CardName>
         <CardQuantityWrapper>
-          <Button
-            type="button"
-            fontSize={14}
-            onClick={decreaseCardQuantity}
-            children={<FaMinus />}
-          />
           <CardQuantity>{quantity}</CardQuantity>
           <Button
             type="button"
+            styling="transparent"
+            fontSize={14}
+            onClick={decreaseCardQuantity}
+            children={<FaChevronDown />}
+          />
+          <Button
+            type="button"
+            styling="transparent"
             fontSize={14}
             onClick={increaseCardQuantity}
-            children={<FaPlus />}
+            children={<FaChevronUp />}
           />
         </CardQuantityWrapper>
         <Button
           theme="cancel"
+          styling="transparent"
           children={<FaTimes />}
           fontSize={16}
           onClick={deleteCard}
@@ -63,13 +68,20 @@ const CardWrapper = styled.div`
   }
 `
 const CardInner = styled.div`
-  background-color: var(--color-primary-lighter);
+  background-color: var(--color-lightgrey);
   border-radius: 5px;
+  cursor: pointer;
   display: flex;
   align-items: stretch;
   margin: 5px;
-  padding: 15px;
+  padding: 5px 5px 5px 15px;
+  transition: all 0.1s linear;
+
+  &:hover {
+    box-shadow: 0 0 3px 1px var(--color-grey);
+  }
 `
+
 const CardName = styled.p`
   margin: auto;
   flex: 1;
@@ -78,11 +90,11 @@ const CardName = styled.p`
 const CardQuantityWrapper = styled.div`
   display: flex;
   align-items: stretch;
-  margin-right: 10px;
 `
 
 const CardQuantity = styled.p`
   margin: auto;
-  width: 40px;
   text-align: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 `

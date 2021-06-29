@@ -100,7 +100,7 @@ export const StyledButton = styled.button<IStyledButtonProps>`
   align-items: center;
   width: ${(props) => (props.width ? `${props.width}px` : "auto")};
   font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : "15px")};
-  padding: 8px;
+  padding: 6px;
 
   &:hover {
     background-color: ${(props) => props.backgroundColorHover};

@@ -40,9 +40,6 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
             ""
         )
       }}
-      onMouseLeave={() => {
-        setImagePreviewURL("")
-      }}
     >
       <p>{searchResult.name}</p>
       <Button

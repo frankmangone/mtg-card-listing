@@ -7,14 +7,14 @@ import { FaSearch } from "react-icons/fa"
 interface ISearchBarProps {
   search: string
   setSearch: React.Dispatch<string>
-  setLoading: React.Dispatch<boolean>
+  setLoading?: React.Dispatch<boolean>
 }
 
 export const SearchBar: React.FC<ISearchBarProps> = (props) => {
   const { search, setSearch, setLoading } = props
   const handleChange = (event: any) => {
     setSearch(event.target.value)
-    setLoading(true)
+    if (setLoading) setLoading(true)
   }
 
   return (

@@ -6,9 +6,9 @@ import { useCollection } from "../hooks/useCollection"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 
 // Components
-import { CardItem } from "./CardItem"
+import { CollectionCardItem } from "./CollectionCardItem"
 
-export const CardListing: React.FC = () => {
+export const CollectionCardListing: React.FC = () => {
   const cardsCollection = useCollection("cards")
   const query = cardsCollection.orderBy("createdAt", "desc").limit(100)
 
@@ -33,9 +33,9 @@ export const CardListing: React.FC = () => {
   }
 
   return (
-    <CardsContainer>
+    <CollectionListWrapper>
       {cards?.map(({ id, name, quantity }) => (
-        <CardItem
+        <CollectionCardItem
           key={id}
           name={name}
           quantity={quantity}
@@ -44,13 +44,13 @@ export const CardListing: React.FC = () => {
           deleteCard={() => deleteCard(id)}
         />
       ))}
-    </CardsContainer>
+    </CollectionListWrapper>
   )
 }
 
 // Styled components
 
-const CardsContainer = styled.div`
+const CollectionListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
