@@ -20,8 +20,8 @@ export const SearchPage: React.FC = () => {
   const [search, setSearch] = useState("")
   const [searchResults, setSearchResults] = useState([])
   const [loading, setLoading] = useState(false)
-  const [set, setSet] = useState<string | undefined>(undefined)
-  const [imagePreviewURL, setImagePreviewURL] = useState<string>("")
+  const [set, setSet] = useState("")
+  const [imagePreviewURL, setImagePreviewURL] = useState("")
 
   const { sets, loadingSets } = useSetsData()
 

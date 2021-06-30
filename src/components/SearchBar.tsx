@@ -33,7 +33,7 @@ export const SearchBar: React.FC<ISearchBarProps> = (props) => {
   return (
     <SearchInputWrapper>
       <SearchSelect value={set} onChange={handleSetChange}>
-        <option value={undefined}>Set..</option>
+        <option value={""}>Set..</option>
         {sets.map((set) => (
           <option key={set.id} value={set.code}>
             {set.name}
