@@ -44,7 +44,7 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
     >
       <ResultInformation>
         <ResultSet>{searchResult.set.toUpperCase()}</ResultSet>
-        <p>{searchResult.name}</p>
+        <ResultName>{searchResult.name}</ResultName>
       </ResultInformation>
       <Button
         children={<FaPlus />}
@@ -80,6 +80,7 @@ const ResultItem = styled.div`
 const ResultInformation = styled.div`
   display: flex;
   align-items: center;
+  flex-grow: 1;
 `
 
 const ResultSet = styled.p`
@@ -88,7 +89,12 @@ const ResultSet = styled.p`
   color: var(--color-white);
   font-size: 0.8rem;
   padding: 5px;
-  margin-right: 0.7rem;
+  margin: 0;
+  margin-right: 0.5rem;
   text-align: center;
-  width: 30px;
+  flex-basis: 30px;
+  flex-shrink: 0;
+`
+const ResultName = styled.p`
+  font-size: 1rem;
 `
