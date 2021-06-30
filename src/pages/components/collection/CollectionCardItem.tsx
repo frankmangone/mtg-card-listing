@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 // Components
 import { Link } from 'react-router-dom'
-import { Button } from "./Button"
+import { Button } from "../../../components/Button"
 import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa"
 
 interface ICollectionCardItemProps {

@@ -2,10 +2,10 @@
 import styled from "styled-components"
 
 // Hooks
-import { useHandleCards } from "../hooks/useHandleCards"
+import { useHandleCards } from "../../../hooks/useHandleCards"
 
 // Components
-import { Button } from "./Button"
+import { Button } from "../../../components/Button"
 import { FaPlus } from "react-icons/fa"
 
 interface IImageResolutions {

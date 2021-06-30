@@ -3,11 +3,11 @@ import styled from "styled-components"
 
 // Hooks
 import { useState } from "react"
-import { useFirebase } from "../context/FirebaseContext"
-import { useCollection } from "../hooks/useCollection"
+import { useFirebase } from "../../../context/FirebaseContext"
+import { useCollection } from "../../../hooks/useCollection"
 
 // Components
-import { Button } from "./Button"
+import { Button } from "../../../components/Button"
 import { FaPlus, FaMinus } from "react-icons/fa"
 
 export const CollectionSearch: React.FC = () => {

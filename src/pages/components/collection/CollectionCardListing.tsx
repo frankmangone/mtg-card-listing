@@ -2,7 +2,7 @@
 import styled from "styled-components"
 
 // Hooks
-import { useCollection } from "../hooks/useCollection"
+import { useCollection } from "../../../hooks/useCollection"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 
 // Components

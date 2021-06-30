@@ -2,7 +2,7 @@
 import styled from "styled-components"
 
 // Components
-import { LoadSpinner } from "./LoadSpinner"
+import { LoadSpinner } from "../../../components/LoadSpinner"
 import { SearchResultItem } from "./SearchResultItem"
 
 // Types

@@ -6,8 +6,8 @@ import { MainLayout } from "../layouts/MainLayout"
 
 // Components
 import { SearchBar } from "../components/SearchBar"
-import { SearchResultsCardDisplayer } from "../components/SearchResultsCardDisplayer"
-import { SearchResultsList } from "../components/SearchResultsList"
+import { SearchResultsCardDisplayer } from "./components/search/SearchResultsCardDisplayer"
+import { SearchResultsList } from "./components/search/SearchResultsList"
 
 // Context
 import { SetsContext, useSetsData } from "../context/SetsContext"
