@@ -5,6 +5,7 @@ import { useFirebase } from "../context/FirebaseContext"
 
 interface ISaveData {
   name: string
+  imageUrl: string
   quantity: number
 }
 
@@ -16,7 +17,7 @@ export const useHandleCards = () => {
   const saveCard = async (data: ISaveData, event?: any) => {
     if (event) event.preventDefault() // For form submits, if necessary
 
-    const { name, quantity } = data
+    const { name, quantity, imageUrl } = data
 
     if (auth.currentUser) {
       const { uid } = auth.currentUser
@@ -24,6 +25,7 @@ export const useHandleCards = () => {
       const success = await cardsCollection.add({
         name,
         quantity,
+        imageUrl,
         userId: uid,
         createdAt: firestore.FieldValue?.serverTimestamp() || new Date(),
       })

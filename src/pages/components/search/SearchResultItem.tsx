@@ -31,15 +31,16 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
   const { searchResult, setImagePreviewURL } = props
   const { saveCard } = useHandleCards()
 
+  const imageUrl =
+    searchResult.image_uris?.normal ||
+    searchResult.card_faces?.[0].image_uris?.normal ||
+    ""
+
   return (
     <ResultItem
       key={searchResult.id}
       onMouseEnter={() => {
-        setImagePreviewURL(
-          searchResult.image_uris?.normal ||
-            searchResult.card_faces?.[0].image_uris?.normal ||
-            ""
-        )
+        setImagePreviewURL(imageUrl)
       }}
     >
       <ResultInformation>
@@ -51,6 +52,7 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
         styling="transparent"
         onClick={() =>
           saveCard({
+            imageUrl: imageUrl,
             name: searchResult.name,
             quantity: 1,
           })
