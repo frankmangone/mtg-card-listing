@@ -37,6 +37,7 @@ export const CollectionCardListing: React.FC = () => {
       {cards?.map(({ id, name, quantity }) => (
         <CollectionCardItem
           key={id}
+          id={id}
           name={name}
           quantity={quantity}
           increaseCardQuantity={() => increaseCardQuantity(id, quantity)}

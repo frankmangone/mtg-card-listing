@@ -14,6 +14,7 @@ import {
 } from "./context/FlashMessageContext"
 
 // Pages
+import { CardPage } from "./pages/CardPage"
 import { CollectionPage } from "./pages/CollectionPage"
 import { SearchPage } from "./pages/SearchPage"
 
@@ -61,6 +62,7 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/" exact component={CollectionPage} />
             <Route path="/search" exact component={SearchPage} />
+            <Route path="/cards/:id" exact component={CardPage} />
           </Switch>
         </Router>
       </FlashMessageContext.Provider>
