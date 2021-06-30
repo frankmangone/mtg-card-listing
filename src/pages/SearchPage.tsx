@@ -9,6 +9,9 @@ import { SearchBar } from "../components/SearchBar"
 import { SearchResultsCardDisplayer } from "../components/SearchResultsCardDisplayer"
 import { SearchResultsList } from "../components/SearchResultsList"
 
+// Context
+import { SetsContext, useSetsData } from "../context/SetsContext"
+
 // Hooks
 import { useState } from "react"
 import { useScryfallQuery } from "../hooks/useScryfallQuery"
@@ -17,33 +20,45 @@ export const SearchPage: React.FC = () => {
   const [search, setSearch] = useState("")
   const [searchResults, setSearchResults] = useState([])
   const [loading, setLoading] = useState(false)
-  const [imagePreviewURL, setImagePreviewURL] = useState<string>("")
+  const [set, setSet] = useState("")
+  const [imagePreviewURL, setImagePreviewURL] = useState("")
+
+  const { sets, loadingSets } = useSetsData()
 
   useScryfallQuery({
+    set,
     search,
     setSearchResults,
     setLoading,
   })
 
   return (
-    <MainLayout>
-      <SearchPageWrapper>
-        <SearchBar
-          search={search}
-          setSearch={setSearch}
-          setLoading={setLoading}
-        />
-        <SearchResultsWrapper>
-          <SearchResultsCardDisplayer imagePreviewURL={imagePreviewURL} />
-          <SearchResultsList
-            loading={loading}
-            search={search}
-            searchResults={searchResults}
-            setImagePreviewURL={setImagePreviewURL}
+    <SetsContext.Provider value={{ sets, loadingSets }}>
+      <MainLayout>
+        <SearchPageWrapper>
+          <SearchBar
+            {...{
+              search,
+              setSearch,
+              set,
+              setSet,
+              setLoading,
+            }}
           />
-        </SearchResultsWrapper>
-      </SearchPageWrapper>
-    </MainLayout>
+          <SearchResultsWrapper>
+            <SearchResultsCardDisplayer imagePreviewURL={imagePreviewURL} />
+            <SearchResultsList
+              {...{
+                loading,
+                search,
+                searchResults,
+                setImagePreviewURL,
+              }}
+            />
+          </SearchResultsWrapper>
+        </SearchPageWrapper>
+      </MainLayout>
+    </SetsContext.Provider>
   )
 }
 
