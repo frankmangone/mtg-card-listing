@@ -43,6 +43,7 @@ const CardViewWrapper = styled.div`
   display: flex;
 `
 
-const CardDetails = styled.div``
-
-const CardLegality = styled.div``
+const CardDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+`
