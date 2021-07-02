@@ -6,7 +6,7 @@ import { LoadSpinner } from "../../../components/LoadSpinner"
 import { SearchResultItem } from "./SearchResultItem"
 
 // Types
-import { ISearchResult } from "./SearchResultItem"
+import { ISearchResult } from "../../../types/SearchResult"
 
 interface ISearchResultsListProps {
   loading: boolean

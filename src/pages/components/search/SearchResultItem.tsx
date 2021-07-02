@@ -8,19 +8,8 @@ import { useHandleCards } from "../../../hooks/useHandleCards"
 import { Button } from "../../../components/Button"
 import { FaPlus } from "react-icons/fa"
 
-interface IImageResolutions {
-  small: string
-  normal: string
-  large: string
-}
-export interface ISearchResult {
-  id: string
-  name: string
-  set: string
-  image_uris?: IImageResolutions
-  card_faces?: { image_uris: IImageResolutions }[]
-  // TODO: Expand this as needed
-}
+// Types
+import { ISearchResult } from "../../../types/SearchResult"
 
 interface ISearchResultsItemProps {
   searchResult: ISearchResult
@@ -53,8 +42,11 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
         onClick={() =>
           saveCard({
             imageUrl: imageUrl,
+            legalities: searchResult.legalities,
             name: searchResult.name,
+            prices: searchResult.prices,
             quantity: 1,
+            set_name: searchResult.set_name,
           })
         }
       />

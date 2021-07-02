@@ -17,7 +17,7 @@ export const useScryfallQuery = (props: IUseScryfallQueryProps) => {
     const searchString = search.replace(" ", "+")
     const setString = set !== "" ? `+e%3A${set}` : ""
     const queryString = `unique=prints&q=${searchString}${setString}`
-    console.log(queryString)
+
     fetch(
       `https://api.scryfall.com/cards/search?unique=prints&q=${queryString}`
     )
