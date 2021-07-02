@@ -12,11 +12,11 @@ interface ISearchResultsListProps {
   loading: boolean
   search: string
   searchResults: ISearchResult[]
-  setImagePreviewURL: React.Dispatch<string>
+  setImagePreviewUrl: React.Dispatch<string>
 }
 
 export const SearchResultsList: React.FC<ISearchResultsListProps> = (props) => {
-  const { loading, search, searchResults, setImagePreviewURL } = props
+  const { loading, search, searchResults, setImagePreviewUrl } = props
 
   return (
     <ResultsWrapper>
@@ -42,7 +42,7 @@ export const SearchResultsList: React.FC<ISearchResultsListProps> = (props) => {
         return (
           <SearchResultItem
             key={searchResult.id}
-            {...{ searchResult, setImagePreviewURL }}
+            {...{ searchResult, setImagePreviewUrl }}
           />
         )
       })}

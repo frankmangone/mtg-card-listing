@@ -38,6 +38,9 @@ export const CardPage: React.FC = () => {
 
 const CardPageWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
   margin-top: 0.8rem;
 `

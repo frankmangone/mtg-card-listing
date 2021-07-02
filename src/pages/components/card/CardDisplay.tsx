@@ -1,8 +1,15 @@
 // Packages
-// import styled from "styled-components"
+import styled from "styled-components"
 
+// Components
+import { CardImageDisplayer } from "../../../components/CardImageDisplayer"
 interface ICardDisplayProps {
-  card: any
+  card: ICard
+}
+
+interface ICard {
+  name: string
+  imageUrl: string
 }
 
 export const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
@@ -11,8 +18,16 @@ export const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
 
   return (
     <>
-      <p>{name}</p>
-      <p>{imageUrl}</p>
+      <CardTitle>{name}</CardTitle>
+      <CardDetails>
+        <CardImageDisplayer imageUrl={imageUrl} />
+      </CardDetails>
     </>
   )
 }
+
+const CardTitle = styled.h3``
+
+const CardDetails = styled.div`
+  display: flex;
+`

@@ -24,11 +24,11 @@ export interface ISearchResult {
 
 interface ISearchResultsItemProps {
   searchResult: ISearchResult
-  setImagePreviewURL: React.Dispatch<string>
+  setImagePreviewUrl: React.Dispatch<string>
 }
 
 export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
-  const { searchResult, setImagePreviewURL } = props
+  const { searchResult, setImagePreviewUrl } = props
   const { saveCard } = useHandleCards()
 
   const imageUrl =
@@ -40,7 +40,7 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
     <ResultItem
       key={searchResult.id}
       onMouseEnter={() => {
-        setImagePreviewURL(imageUrl)
+        setImagePreviewUrl(imageUrl)
       }}
     >
       <ResultInformation>
