@@ -18,12 +18,19 @@ interface IRouteParams {
 
 export const CardPage: React.FC = () => {
   const { id } = useParams<IRouteParams>()
-  const { card } = useGetCard(id)
+  const { loading, card, error } = useGetCard(id)
 
   return (
     <MainLayout>
       <CardPageWrapper>
-        {card ? <CardDisplay card={card} /> : <LoadSpinner />}
+        {/* Spinner while loading */}
+        {loading && <LoadSpinner />}
+
+        {/* Show card when succesfully retrieved */}
+        {card && <CardDisplay card={card} />}
+
+        {/* Show error message when load fails */}
+        {error && <p>Error: {error.message}</p>}
       </CardPageWrapper>
     </MainLayout>
   )

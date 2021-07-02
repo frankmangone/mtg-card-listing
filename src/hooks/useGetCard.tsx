@@ -8,7 +8,7 @@ export const useGetCard = (id: string) => {
 
   const [card, setCard] = useState<any>(undefined)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<any>(undefined)
+  const [error, setError] = useState<Error | undefined>(undefined)
 
   useEffect(() => {
     cardRef
@@ -17,16 +17,16 @@ export const useGetCard = (id: string) => {
         if (doc.exists) {
           setCard(doc.data())
         } else {
-          setError("No such document!") // TODO: Better error for this!!
+          setError(new Error("Card with specified id not found"))
         }
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         setError(error)
       })
       .finally(() => {
         setLoading(false)
       })
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return { card, loading, error }
