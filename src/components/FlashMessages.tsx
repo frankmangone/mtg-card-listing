@@ -9,6 +9,9 @@ import { FaTimes } from "react-icons/fa"
 import { useEffect, useRef } from "react"
 import { useFlashMessage } from "../context/FlashMessageContext"
 
+// Types
+import { TTheme } from "./Button"
+
 const AUTODESTROY_TIMEOUT = 5000 // [ms]
 
 export const FlashMessages: React.FC = () => {
@@ -17,7 +20,7 @@ export const FlashMessages: React.FC = () => {
   return (
     <FlashMessagesWrapper>
       {flashMessages.map((message) => (
-        <FlashMessage key={message.key} id={message.key} text={message.text} />
+        <FlashMessage id={message.key} {...message} />
       ))}
     </FlashMessagesWrapper>
   )
@@ -36,11 +39,12 @@ const FlashMessagesWrapper = styled.div`
 interface IFlashMessageProps {
   text: string
   id: string
+  theme?: string
 }
 
 const FlashMessage: React.FC<IFlashMessageProps> = (props) => {
   const { removeFlashMessage } = useFlashMessage()
-  const { id, text } = props
+  const { id, text, theme } = props
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -55,9 +59,10 @@ const FlashMessage: React.FC<IFlashMessageProps> = (props) => {
   }
 
   return (
-    <FlashMessageWrapper>
+    <FlashMessageWrapper theme={theme}>
       <p>{text}</p>
       <Button
+        theme={theme as TTheme}
         styling="transparent"
         children={<FaTimes />}
         onClick={removeMessage}
@@ -66,10 +71,33 @@ const FlashMessage: React.FC<IFlashMessageProps> = (props) => {
   )
 }
 
-const FlashMessageWrapper = styled.div`
-  background-color: var(--color-lightgrey);
+interface IFlashMessageWrapperProps {
+  theme?: string
+}
+
+const FlashMessageWrapper = styled.div<IFlashMessageWrapperProps>`
+  ${(props) =>
+    props.theme === "cancel"
+      ? `
+    background-color: var(--color-cancel-lighter);
+    box-shadow: 0 0 3px 1px var(--color-cancel);
+  `
+      : ""}
+  ${(props) =>
+    props.theme === "success"
+      ? `
+    background-color: var(--color-primary-lighter);
+    box-shadow: 0 0 3px 1px var(--color-primary);
+  `
+      : ""}
+  ${(props) =>
+    props.theme === "default" || !props.theme
+      ? `
+    background-color: var(--color-lightgrey);
+    box-shadow: 0 0 3px 1px var(--color-darkgrey);
+  `
+      : ""}
   border-radius: 5px;
-  box-shadow: 0 0 3px 1px var(--color-darkgrey);
   display: flex;
   padding: 20px 10px 20px 20px;
   animation-name: fade;

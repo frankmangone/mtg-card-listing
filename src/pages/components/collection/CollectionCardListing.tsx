@@ -4,6 +4,7 @@ import styled from "styled-components"
 // Hooks
 import { useCollection } from "../../../hooks/useCollection"
 import { useHandleCards } from "../../../hooks/useHandleCards"
+import { useFlashMessage } from "../../../context/FlashMessageContext"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 
 // Components
@@ -15,8 +16,13 @@ export const CollectionCardListing: React.FC = () => {
 
   const [cards] = useCollectionData(query, { idField: "id" })
   const { changeCardQuantity } = useHandleCards()
+  const { addFlashMessage } = useFlashMessage()
 
-  const deleteCard = (id: string) => {
+  const deleteCard = (id: string, name: string) => {
+    addFlashMessage({
+      text: `'${name}' was removed from your collection.`,
+      theme: "cancel",
+    })
     cardsCollection.doc(id).delete()
   }
 
@@ -30,7 +36,7 @@ export const CollectionCardListing: React.FC = () => {
           quantity={quantity}
           increaseCardQuantity={() => changeCardQuantity(id, quantity + 1)}
           decreaseCardQuantity={() => changeCardQuantity(id, quantity - 1)}
-          deleteCard={() => deleteCard(id)}
+          deleteCard={() => deleteCard(id, name)}
         />
       ))}
     </CollectionListWrapper>
