@@ -11,12 +11,31 @@ interface ICardLegalitiesProps {
   legalities: ILegalities
 }
 
+const LEGALITY_KEYS = [
+  "standard",
+  "historic",
+  "pioneer",
+  "modern",
+  "legacy",
+  "vintage",
+  "commander",
+  "brawl",
+  "pauper",
+  "penny",
+  "oldschool",
+  "gladiator",
+  "future",
+  "duel",
+  "premodern",
+]
 export const CardLegalities: React.FC<ICardLegalitiesProps> = (props) => {
   const { legalities } = props
   return (
     <CardLegalitiesWrapper>
       <h4>Legality:</h4>
-      {Object.entries(legalities).map(([key, value]) => {
+      {LEGALITY_KEYS.map((key) => {
+        const value = legalities[key as keyof typeof legalities]
+
         return (
           <CardLegality key={key} legal={value}>
             {capitalize(key)}

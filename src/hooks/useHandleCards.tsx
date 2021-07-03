@@ -41,12 +41,10 @@ export const useHandleCards = () => {
     }
   }
 
-  const changeCardQuantity = (id: string, amount: number) => {
-    const quantity = cardsCollection?.doc(id).quantity
-
-    if (quantity - amount > 0) {
-      cardsCollection?.doc(id).update({
-        quantity: quantity - amount,
+  const changeCardQuantity = async (id: string, value: number) => {
+    if (value > 0) {
+      await cardsCollection?.doc(id).update({
+        quantity: value,
       })
     }
   }

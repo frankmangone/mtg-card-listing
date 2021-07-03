@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 // Hooks
 import { useCollection } from "../../../hooks/useCollection"
+import { useHandleCards } from "../../../hooks/useHandleCards"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 
 // Components
@@ -13,20 +14,7 @@ export const CollectionCardListing: React.FC = () => {
   const query = cardsCollection.orderBy("createdAt", "desc").limit(100)
 
   const [cards] = useCollectionData(query, { idField: "id" })
-
-  const decreaseCardQuantity = (id: string, originalQty: number) => {
-    if (originalQty > 1) {
-      cardsCollection?.doc(id).update({
-        quantity: originalQty - 1,
-      })
-    }
-  }
-
-  const increaseCardQuantity = (id: string, originalQty: number) => {
-    cardsCollection?.doc(id).update({
-      quantity: originalQty + 1,
-    })
-  }
+  const { changeCardQuantity } = useHandleCards()
 
   const deleteCard = (id: string) => {
     cardsCollection.doc(id).delete()
@@ -40,8 +28,8 @@ export const CollectionCardListing: React.FC = () => {
           id={id}
           name={name}
           quantity={quantity}
-          increaseCardQuantity={() => increaseCardQuantity(id, quantity)}
-          decreaseCardQuantity={() => decreaseCardQuantity(id, quantity)}
+          increaseCardQuantity={() => changeCardQuantity(id, quantity + 1)}
+          decreaseCardQuantity={() => changeCardQuantity(id, quantity - 1)}
           deleteCard={() => deleteCard(id)}
         />
       ))}

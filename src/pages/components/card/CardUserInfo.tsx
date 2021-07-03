@@ -1,17 +1,25 @@
 // Packages
 import styled from "styled-components"
 
+// Components
+import { CardQuantity } from "./CardQuantity"
+
+// Types
+import { ICard } from "../../../types/Card"
+
 interface ICardUserInfoProps {
-  name: string
-  setName: string
+  id: string
+  card: ICard
 }
 
 export const CardUserInfo: React.FC<ICardUserInfoProps> = (props) => {
-  const { name, setName } = props
+  const { card, id } = props
+  const { name, set_name, quantity } = card
   return (
     <CardUserInfoWrapper>
       <CardName>{name}</CardName>
-      <CardSet>{setName}</CardSet>
+      <CardSet>{set_name}</CardSet>
+      <CardQuantity quantity={quantity} id={id} />
     </CardUserInfoWrapper>
   )
 }
@@ -37,12 +45,9 @@ const CardName = styled.h3`
 const CardSet = styled.p`
   margin-top: 0;
   color: var(--color-grey);
-  &:after {
-    content: "";
-    height: 1px;
-    background-color: var(--color-lightgrey);
-    align-self: stretch;
-    display: block;
-    margin-top: 0.5rem;
-  }
+`
+
+export const CardInfoField = styled.div`
+  display: flex;
+  align-items: center;
 `

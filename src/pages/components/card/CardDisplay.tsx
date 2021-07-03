@@ -7,21 +7,16 @@ import { CardLegalities } from "./CardLegalities"
 import { CardUserInfo } from "./CardUserInfo"
 
 // Types
-import { ILegalities } from "../../../types/SearchResult"
+import { ICard } from "../../../types/Card"
+
 interface ICardDisplayProps {
+  id: string
   card: ICard
 }
 
-interface ICard {
-  name: string
-  imageUrl: string
-  legalities: ILegalities
-  set_name: string
-}
-
 export const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
-  const { card } = props
-  const { name, imageUrl, legalities, set_name } = card
+  const { card, id } = props
+  const { imageUrl, legalities } = card
 
   return (
     <CardViewWrapper>
@@ -29,7 +24,7 @@ export const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
         <CardImageDisplayer imageUrl={imageUrl} parentFlexDirection="column" />
         <CardLegalities legalities={legalities} />
       </CardDetails>
-      <CardUserInfo {...{ name, setName: set_name }} />
+      <CardUserInfo card={card} id={id} />
     </CardViewWrapper>
   )
 }
