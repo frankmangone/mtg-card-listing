@@ -14,12 +14,13 @@ interface ICardUserInfoProps {
 
 export const CardUserInfo: React.FC<ICardUserInfoProps> = (props) => {
   const { card, id } = props
-  const { name, set_name, quantity } = card
+  const { name, set_name, quantity, sellStatus } = card
   return (
     <CardUserInfoWrapper>
       <CardName>{name}</CardName>
       <CardSet>{set_name}</CardSet>
       <CardQuantity quantity={quantity} id={id} />
+      {/* TODO: <CardSellStatus sellStatus={sellStatus} id={id} /> */}
     </CardUserInfoWrapper>
   )
 }
@@ -45,9 +46,4 @@ const CardName = styled.h3`
 const CardSet = styled.p`
   margin-top: 0;
   color: var(--color-grey);
-`
-
-export const CardInfoField = styled.div`
-  display: flex;
-  align-items: center;
 `

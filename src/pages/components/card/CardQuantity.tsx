@@ -4,7 +4,7 @@ import styled from "styled-components"
 // Components
 import { Button } from "../../../components/Button"
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"
-import { CardInfoField } from "./CardUserInfo"
+import { CardInfoField, Title, Value, Spacer } from "./CardInfoField"
 
 // Hooks
 import { useHandleCards } from "../../../hooks/useHandleCards"
@@ -38,20 +38,3 @@ export const CardQuantity: React.FC<ICardQuantityProps> = (props) => {
     </CardInfoField>
   )
 }
-
-const Title = styled.p`
-  color: var(--color-darkgrey);
-  margin-right: 1rem;
-`
-
-const Value = styled.p`
-  font-weight: bold;
-  text-align: right;
-  margin-right: 0.35rem;
-`
-const Spacer = styled.div`
-  flex-grow: 1;
-  height: 1px;
-  background-color: var(--color-lightgrey);
-  margin-right: 1rem;
-`
