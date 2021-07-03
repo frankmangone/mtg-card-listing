@@ -56,7 +56,7 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
 
 const ResultItem = styled.div`
   align-items: center;
-  background-color: var(--color-lightgrey);
+  background-color: var(--color-lightergrey);
   border-radius: 5px;
   cursor: pointer;
   display: flex;

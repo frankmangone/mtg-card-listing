@@ -65,7 +65,7 @@ const SearchInputWrapper = styled.div`
 `
 
 const SearchInput = styled.input`
-  background-color: var(--color-lightgrey);
+  background-color: var(--color-lightergrey);
   border: none;
   border-radius: 5px;
   font-size: 1.2rem;
@@ -82,7 +82,7 @@ const SearchInput = styled.input`
 
 const SearchSelect = styled.select`
   align-self: stretch;
-  background-color: var(--color-lightgrey);
+  background-color: var(--color-lightergrey);
   border: none;
   border-radius: 5px;
   font-size: 1.2rem;

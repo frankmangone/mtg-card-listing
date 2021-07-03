@@ -2,7 +2,7 @@
 import styled from "styled-components"
 
 // Components
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
 import { Button } from "../../../components/Button"
 import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa"
 
@@ -31,7 +31,9 @@ export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
   return (
     <CardWrapper>
       <CardInner>
-        <CardName><Link to={`/cards/${id}`}>{name}</Link></CardName>
+        <CardName>
+          <Link to={`/cards/${id}`}>{name}</Link>
+        </CardName>
         <CardQuantityWrapper>
           <CardQuantity>{quantity}</CardQuantity>
           <Button
@@ -71,7 +73,7 @@ const CardWrapper = styled.div`
   }
 `
 const CardInner = styled.div`
-  background-color: var(--color-lightgrey);
+  background-color: var(--color-lightergrey);
   border-radius: 5px;
   cursor: pointer;
   display: flex;
@@ -88,7 +90,7 @@ const CardInner = styled.div`
 const CardName = styled.p`
   margin: auto;
   flex: 1;
-  
+
   a {
     color: var(--color-darkgrey);
     text-decoration: none;
@@ -97,8 +99,6 @@ const CardName = styled.p`
       color: var(--color-grey);
     }
   }
-
-
 `
 
 const CardQuantityWrapper = styled.div`

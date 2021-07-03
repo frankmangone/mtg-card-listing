@@ -25,7 +25,7 @@ interface ICardDisplayerWrapperProps {
 
 const CardDisplayerWrapper = styled.div<ICardDisplayerWrapperProps>`
   border-radius: 15px;
-  background-color: var(--color-lightgrey);
+  background-color: var(--color-lightergrey);
   flex-shrink: 0;
   ${(props) =>
     props.parentFlexDirection === "column"

@@ -62,7 +62,7 @@ const ResultsWrapper = styled.div`
 
 const Message = styled.div`
   align-items: center;
-  background-color: var(--color-lightgrey);
+  background-color: var(--color-lightergrey);
   border-radius: 5px;
   color: var(--color-grey);
   display: flex;
