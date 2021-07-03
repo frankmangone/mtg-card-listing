@@ -2,7 +2,7 @@
 import styled from "styled-components"
 
 // Types
-import { ILegalities } from "../../../types/SearchResult"
+import { ILegalities } from "../../../types/Card"
 
 // Helpers
 import { capitalize } from "../../../helpers/capitalize"
