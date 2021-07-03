@@ -42,24 +42,24 @@ const NavbarWrapper = styled.nav`
   }
 
   a,
-  button { 
+  button {
     transition: color 0.1s linear;
-    color: var(--color-lightgrey);
+    color: var(--color-lightergrey);
   }
 
-  a { 
+  a {
     padding-right: 0;
     display: flex;
     align-items: center;
     text-decoration: none;
   }
 
-  a:visited { 
-    color: var(--color-lightgrey);
+  a:visited {
+    color: var(--color-lightergrey);
   }
 
   a:hover,
-  button:hover { 
+  button:hover {
     color: var(--color-white);
     text-shadow: 0 0 2px 3px var(--color-white);
   }
@@ -81,8 +81,8 @@ const SignedInNavbar: React.FC<ISignedInNavbarProps> = (props) => {
     <>
       <LeftContent>
         <p>{user.displayName}</p>
-        <Link to='/search'>Find cards</Link>
-        <Link to='/'>My collection</Link>
+        <Link to="/search">Find cards</Link>
+        <Link to="/">My collection</Link>
       </LeftContent>
       <NavbarLink onClick={signOut}>Sign out</NavbarLink>
     </>
@@ -113,7 +113,7 @@ const NavbarLink = styled.button`
 const LeftContent = styled.div`
   display: flex;
   align-items: stretch;
-  p { 
+  p {
     border-right: 1px solid var(--color-primary-dark);
   }
 `

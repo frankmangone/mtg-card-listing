@@ -2,9 +2,9 @@
 import styled from "styled-components"
 
 export const LoadSpinner = styled.div`
-  width: 20px;
-  height: 20px;
-  border: 5px solid transparent;
+  width: 25px;
+  height: 25px;
+  border: 6px solid transparent;
   border-left-color: var(--color-primary);
   border-radius: 50%;
   animation-name: spin;

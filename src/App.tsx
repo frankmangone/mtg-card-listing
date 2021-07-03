@@ -14,6 +14,7 @@ import {
 } from "./context/FlashMessageContext"
 
 // Pages
+import { CardPage } from "./pages/CardPage"
 import { CollectionPage } from "./pages/CollectionPage"
 import { SearchPage } from "./pages/SearchPage"
 
@@ -43,7 +44,8 @@ const GlobalStyle = createGlobalStyle`
     --color-primary-dark: hsl(100, 25%, 40%);
 
     --color-white: hsl(0, 0%, 100%);
-    --color-lightgrey: hsl(0, 0%, 95%);
+    --color-lightergrey: hsl(0, 0%, 95%);
+    --color-lightgrey: hsl(0, 0%, 85%);
     --color-grey:hsl(0, 0%, 50%);
     --color-darkgrey: hsl(0, 0%, 20%);
   }
@@ -61,6 +63,7 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/" exact component={CollectionPage} />
             <Route path="/search" exact component={SearchPage} />
+            <Route path="/cards/:id" exact component={CardPage} />
           </Switch>
         </Router>
       </FlashMessageContext.Provider>

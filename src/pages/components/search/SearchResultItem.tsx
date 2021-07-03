@@ -2,44 +2,34 @@
 import styled from "styled-components"
 
 // Hooks
-import { useHandleCards } from "../hooks/useHandleCards"
+import { useHandleCards } from "../../../hooks/useHandleCards"
 
 // Components
-import { Button } from "./Button"
+import { Button } from "../../../components/Button"
 import { FaPlus } from "react-icons/fa"
 
-interface IImageResolutions {
-  small: string
-  normal: string
-  large: string
-}
-export interface ISearchResult {
-  id: string
-  name: string
-  set: string
-  image_uris?: IImageResolutions
-  card_faces?: { image_uris: IImageResolutions }[]
-  // TODO: Expand this as needed
-}
+// Types
+import { ISearchResult } from "../../../types/SearchResult"
 
 interface ISearchResultsItemProps {
   searchResult: ISearchResult
-  setImagePreviewURL: React.Dispatch<string>
+  setImagePreviewUrl: React.Dispatch<string>
 }
 
 export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
-  const { searchResult, setImagePreviewURL } = props
+  const { searchResult, setImagePreviewUrl } = props
   const { saveCard } = useHandleCards()
+
+  const imageUrl =
+    searchResult.image_uris?.normal ||
+    searchResult.card_faces?.[0].image_uris?.normal ||
+    ""
 
   return (
     <ResultItem
       key={searchResult.id}
       onMouseEnter={() => {
-        setImagePreviewURL(
-          searchResult.image_uris?.normal ||
-            searchResult.card_faces?.[0].image_uris?.normal ||
-            ""
-        )
+        setImagePreviewUrl(imageUrl)
       }}
     >
       <ResultInformation>
@@ -51,8 +41,12 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
         styling="transparent"
         onClick={() =>
           saveCard({
+            imageUrl: imageUrl,
+            legalities: searchResult.legalities,
             name: searchResult.name,
+            prices: searchResult.prices,
             quantity: 1,
+            set_name: searchResult.set_name,
           })
         }
       />
@@ -62,7 +56,7 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
 
 const ResultItem = styled.div`
   align-items: center;
-  background-color: var(--color-lightgrey);
+  background-color: var(--color-lightergrey);
   border-radius: 5px;
   cursor: pointer;
   display: flex;

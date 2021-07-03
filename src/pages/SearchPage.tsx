@@ -5,9 +5,9 @@ import styled from "styled-components"
 import { MainLayout } from "../layouts/MainLayout"
 
 // Components
+import { CardImageDisplayer } from "../components/CardImageDisplayer"
 import { SearchBar } from "../components/SearchBar"
-import { SearchResultsCardDisplayer } from "../components/SearchResultsCardDisplayer"
-import { SearchResultsList } from "../components/SearchResultsList"
+import { SearchResultsList } from "./components/search/SearchResultsList"
 
 // Context
 import { SetsContext, useSetsData } from "../context/SetsContext"
@@ -21,7 +21,7 @@ export const SearchPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState([])
   const [loading, setLoading] = useState(false)
   const [set, setSet] = useState("")
-  const [imagePreviewURL, setImagePreviewURL] = useState("")
+  const [imagePreviewUrl, setImagePreviewUrl] = useState("")
 
   const { sets, loadingSets } = useSetsData()
 
@@ -46,13 +46,13 @@ export const SearchPage: React.FC = () => {
             }}
           />
           <SearchResultsWrapper>
-            <SearchResultsCardDisplayer imagePreviewURL={imagePreviewURL} />
+            <CardImageDisplayer imageUrl={imagePreviewUrl} />
             <SearchResultsList
               {...{
                 loading,
                 search,
                 searchResults,
-                setImagePreviewURL,
+                setImagePreviewUrl,
               }}
             />
           </SearchResultsWrapper>

@@ -2,21 +2,21 @@
 import styled from "styled-components"
 
 // Components
-import { LoadSpinner } from "./LoadSpinner"
+import { LoadSpinner } from "../../../components/LoadSpinner"
 import { SearchResultItem } from "./SearchResultItem"
 
 // Types
-import { ISearchResult } from "./SearchResultItem"
+import { ISearchResult } from "../../../types/SearchResult"
 
 interface ISearchResultsListProps {
   loading: boolean
   search: string
   searchResults: ISearchResult[]
-  setImagePreviewURL: React.Dispatch<string>
+  setImagePreviewUrl: React.Dispatch<string>
 }
 
 export const SearchResultsList: React.FC<ISearchResultsListProps> = (props) => {
-  const { loading, search, searchResults, setImagePreviewURL } = props
+  const { loading, search, searchResults, setImagePreviewUrl } = props
 
   return (
     <ResultsWrapper>
@@ -42,7 +42,7 @@ export const SearchResultsList: React.FC<ISearchResultsListProps> = (props) => {
         return (
           <SearchResultItem
             key={searchResult.id}
-            {...{ searchResult, setImagePreviewURL }}
+            {...{ searchResult, setImagePreviewUrl }}
           />
         )
       })}
@@ -62,7 +62,7 @@ const ResultsWrapper = styled.div`
 
 const Message = styled.div`
   align-items: center;
-  background-color: var(--color-lightgrey);
+  background-color: var(--color-lightergrey);
   border-radius: 5px;
   color: var(--color-grey);
   display: flex;

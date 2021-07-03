@@ -5,7 +5,7 @@ import styled from "styled-components"
 import { MainLayout } from "../layouts/MainLayout"
 
 // Components
-import { CollectionCardListing } from "../components/CollectionCardListing"
+import { CollectionCardListing } from "./components/collection/CollectionCardListing"
 import { SearchBar } from "../components/SearchBar"
 
 // Hooks
