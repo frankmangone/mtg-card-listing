@@ -4,7 +4,7 @@ import { useFlashMessage } from "../context/FlashMessageContext"
 import { useFirebase } from "../context/FirebaseContext"
 
 // Types
-import { ILegalities, IPrices } from "../types/SearchResult"
+import { ILegalities, IPrices, SellStatus } from "../types/Card"
 
 interface ISaveData {
   name: string
@@ -12,6 +12,7 @@ interface ISaveData {
   legalities: ILegalities
   prices: IPrices
   quantity: number
+  sellStatus: SellStatus
   set_name: string
 }
 
