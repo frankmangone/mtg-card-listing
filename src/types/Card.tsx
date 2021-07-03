@@ -31,8 +31,9 @@ export interface IPrices {
   tix: string
 }
 
-export enum SellStatus {
-  INACTIVE,
-  SELLING,
-  BUYING,
+export type SellStatus = 0 | 1 | 2
+export const SELL_STATUSES = {
+  INACTIVE: 0,
+  SELLING: 1,
+  BUYING: 2,
 }

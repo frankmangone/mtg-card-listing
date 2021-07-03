@@ -1,6 +1,3 @@
-// Packages
-import styled from "styled-components"
-
 // Components
 import { Button } from "../../../components/Button"
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"

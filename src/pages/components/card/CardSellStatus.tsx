@@ -1,43 +1,39 @@
-// Packages
-import styled from "styled-components"
-
 // Components
-import { CardInfoField } from "./CardInfoField"
+import { CardInfoField, Title, Value, Spacer } from "./CardInfoField"
 
 // Hooks
 import { useHandleCards } from "../../../hooks/useHandleCards"
 
-interface ICardQuantityProps {
+// Helpers
+import { capitalize } from "../../../helpers/capitalize"
+
+// Types
+import { SELL_STATUSES } from "../../../types/Card"
+
+interface ICardSellStatusProps {
   id: string
-  quantity: number
+  sellStatus: number
 }
 
-export const CardQuantity: React.FC<ICardQuantityProps> = (props) => {
-  const { quantity, id } = props
-  const { changeCardQuantity } = useHandleCards()
+export const CardSellStatus: React.FC<ICardSellStatusProps> = (props) => {
+  const { sellStatus, id } = props
+  const { updateCardField } = useHandleCards()
+
+  const changeSellStatus = (event: any) => {
+    updateCardField(id, "sellStatus", event.target.value)
+  }
 
   return (
     <CardInfoField>
-      <Title>Quantity:</Title>
+      <Title>Status:</Title>
       <Spacer />
-      <Value>{quantity}</Value>
+      <select value={sellStatus} onChange={changeSellStatus}>
+        {Object.entries(SELL_STATUSES).map(([status, value]) => (
+          <option key={status} value={value}>
+            {capitalize(status)}
+          </option>
+        ))}
+      </select>
     </CardInfoField>
   )
 }
-
-const Title = styled.p`
-  color: var(--color-darkgrey);
-  margin-right: 1rem;
-`
-
-const Value = styled.p`
-  font-weight: bold;
-  text-align: right;
-  margin-right: 0.35rem;
-`
-const Spacer = styled.div`
-  flex-grow: 1;
-  height: 1px;
-  background-color: var(--color-lightgrey);
-  margin-right: 1rem;
-`
