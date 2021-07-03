@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-type TTheme = "default" | "cancel" | undefined
+export type TTheme = "default" | "cancel" | "success" | undefined
 
 interface IButtonProps {
   type?: "button" | "submit" | "reset"
@@ -15,10 +15,15 @@ interface IButtonProps {
 
 const getThemeColors = (theme: TTheme) => {
   switch (theme) {
+    case "success":
+      return {
+        mainColor: "var(--color-primary)",
+        hoverColor: "var(--color-primary-dark)",
+      }
     case "cancel":
       return {
-        mainColor: "hsl(0, 40%, 50%)",
-        hoverColor: "hsl(0, 40%, 40%)",
+        mainColor: "var(--color-cancel)",
+        hoverColor: "var(--color-cancel-dark)",
       }
     default:
       return {

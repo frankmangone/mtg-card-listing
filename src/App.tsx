@@ -39,7 +39,13 @@ const firestore = firebase.firestore()
 
 const GlobalStyle = createGlobalStyle`
   :root {
-    --color-primary-light: hsl(100, 25%, 70%);
+    --color-cancel-lighter: hsl(0, 35%, 95%);
+    --color-cancel-light: hsl(0, 35%, 80%);
+    --color-cancel: hsl(0, 35%, 55%);
+    --color-cancel-dark: hsl(0, 35%, 40%);
+
+    --color-primary-lighter: hsl(100, 25%, 95%);
+    --color-primary-light: hsl(100, 25%, 80%);
     --color-primary: hsl(100, 25%, 55%);
     --color-primary-dark: hsl(100, 25%, 40%);
 
