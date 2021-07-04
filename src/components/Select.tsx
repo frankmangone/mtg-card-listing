@@ -1,11 +1,12 @@
 // Packages
 import styled from "styled-components"
+import randomstring from "randomstring"
 
 // Components
 import { FaChevronDown } from "react-icons/fa"
 
 // Hooks
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 
 interface ISelectProps<T> {
   defaultDisplayValue: string
@@ -34,15 +35,70 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
   const [selecting, setSelecting] = useState<boolean>(false)
   const [currentValue, setCurrentValue] = useState<T | undefined>(undefined)
 
+  // Use ref for id value
+  const id = useRef<string>(randomstring.generate(8))
+
+  /*
+   * Save a ref select component, for event add and remove listeners
+   * when clicking outside
+   */
+  const selectRef = useRef<HTMLElement | null>(null)
+  // const dropdownRef = useRef<HTMLElement | null>(null)
+
   useEffect(() => {
+    // Save initialValue provided as prop to currentValue, if present
     if (initialValue) setCurrentValue(initialValue)
+
+    // Save ref to rendered Select component
+    selectRef.current = document.getElementById(id.current)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  /*
+   * Set ref to dropdown when visible
+   */
+  useEffect(() => {
+    if (selecting) selectRef.current = document.getElementById(id.current)
+    else selectRef.current = null
+  }, [selecting])
+
+  /*
+   * A useCallback hook here is needed so that the exact same function is passed
+   * to both addEventListener and removeEventListener
+   *
+   * https://dev.to/marcostreng/how-to-really-remove-eventlisteners-in-react-3och
+   */
+  const clickOutsideHandler = useCallback((event: any): void => {
+    // TODO: Better typing
+    // Uses tips from:
+    // https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element/3028037#3028037
+    if (!selectRef.current?.contains(event.target)) {
+      toggleSelecting()
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  /*
+   * Toggles select options, while adding listeners for closing when clicking outside
+   * of the dropdown
+   */
   const toggleSelecting = (): void => {
+    // Event listeners handling
+    if (!selecting) {
+      window.addEventListener("click", clickOutsideHandler, true)
+    } else {
+      window.removeEventListener("click", clickOutsideHandler, true)
+    }
+    // Toggle state variable
     setSelecting(!selecting)
   }
 
+  /*
+   * Handles value selection
+   * Definition is pretty self-explanatory
+   */
   const selectValue = (value?: T): void => {
     toggleSelecting()
     setCurrentValue(value)
@@ -50,7 +106,7 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
   }
 
   return (
-    <SelectWrapper>
+    <SelectWrapper id={id.current}>
       <SelectValue selecting={selecting} onClick={toggleSelecting}>
         <p>{currentValue || defaultDisplayValue}</p>
         <FaChevronDown size={10} />
