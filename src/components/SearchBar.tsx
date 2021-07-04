@@ -82,20 +82,3 @@ const SearchInput = styled.input`
     box-shadow: 0 0 3px 1px var(--color-darkgrey);
   }
 `
-
-const SearchSelect = styled.select`
-  align-self: stretch;
-  background-color: var(--color-lightergrey);
-  border: none;
-  border-radius: 5px;
-  font-size: 1.2rem;
-  padding-left: 10px;
-  padding-right: 10px;
-  outline: none;
-  width: 100px;
-
-  &:focus,
-  &:active {
-    box-shadow: 0 0 3px 1px var(--color-darkgrey);
-  }
-`

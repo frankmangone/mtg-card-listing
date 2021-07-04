@@ -1,5 +1,5 @@
 // Components
-import { CardInfoField, Title, Value, Spacer } from "./CardInfoField"
+import { CardInfoField, Title, Spacer } from "./CardInfoField"
 
 // Hooks
 import { useHandleCards } from "../../../hooks/useHandleCards"
