@@ -32,9 +32,9 @@ export interface IPrices {
   tix: string
 }
 
-export type SellStatus = 0 | 1 | 2
+export type SellStatus = 1 | 2 | 3
 export const SELL_STATUSES = {
-  INACTIVE: 0,
-  SELLING: 1,
-  BUYING: 2,
+  INACTIVE: 1,
+  SELLING: 2,
+  BUYING: 3,
 }

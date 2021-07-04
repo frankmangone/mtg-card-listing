@@ -1,4 +1,5 @@
 // Components
+import { Select } from "../../../components/Select"
 import { CardInfoField, Title, Spacer } from "./CardInfoField"
 
 // Hooks
@@ -15,25 +16,30 @@ interface ICardSellStatusProps {
   sellStatus: number
 }
 
+const sellStatuses = Object.entries(SELL_STATUSES).map(([status, value]) => ({
+  value: value,
+  displayText: capitalize(status),
+}))
+
 export const CardSellStatus: React.FC<ICardSellStatusProps> = (props) => {
   const { sellStatus, id } = props
   const { updateCardField } = useHandleCards()
 
-  const changeSellStatus = (event: any) => {
-    updateCardField(id, "sellStatus", event.target.value)
+  const changeSellStatus = (value?: number) => {
+    updateCardField(id, "sellStatus", value)
   }
 
   return (
     <CardInfoField>
       <Title>Status:</Title>
       <Spacer />
-      <select value={sellStatus} onChange={changeSellStatus}>
-        {Object.entries(SELL_STATUSES).map(([status, value]) => (
-          <option key={status} value={value}>
-            {capitalize(status)}
-          </option>
-        ))}
-      </select>
+      <Select
+        initialValue={sellStatus}
+        defaultDisplayValue="Select..."
+        selectOptions={sellStatuses}
+        onSelectionChange={changeSellStatus}
+        alignment="right"
+      />
     </CardInfoField>
   )
 }

@@ -14,17 +14,20 @@ interface ISelectProps<T> {
   selectOptions: ISelectOption<T>[]
   onSelectionChange: (value?: T) => void
   children?: JSX.Element | JSX.Element[]
+  alignment?: string
 }
 
 interface ISelectOption<T> {
   value?: T
   displayText?: string
+  collapsedDisplayText?: string
 }
 
 /* Reusable custom select component */
 export const Select = <T extends string | number>(props: ISelectProps<T>) => {
   // Destructure props
   const {
+    alignment,
     defaultDisplayValue,
     initialValue,
     onSelectionChange,
@@ -115,7 +118,7 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
         <FaChevronDown size={10} />
       </SelectValue>
       {selecting && (
-        <SelectOptions>
+        <SelectOptions alignment={alignment || "right"}>
           <SelectOption onClick={() => selectValue(undefined)}>
             <p>{defaultDisplayValue}</p>
           </SelectOption>
@@ -165,10 +168,15 @@ const SelectValue = styled.div<ISelecting>`
   }
 `
 
-const SelectOptions = styled.div`
+interface ISelectOptions {
+  alignment: string
+}
+
+const SelectOptions = styled.div<ISelectOptions>`
   position: absolute;
   top: 100%;
-  left: 0;
+  ${(props) => (props.alignment === "left" ? "left: 0;" : "")}
+  ${(props) => (props.alignment === "right" ? "right: 0;" : "")}
   align-items: stretch;
   background-color: var(--color-lightergrey);
   border: none;

@@ -47,7 +47,7 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
             prices: searchResult.prices,
             quantity: 1,
             set_name: searchResult.set_name,
-            sellStatus: 0,
+            sellStatus: 1,
           })
         }
       />
