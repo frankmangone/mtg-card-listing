@@ -6,13 +6,14 @@ import { useSets } from "../context/SetsContext"
 
 // Components
 import { FaSearch } from "react-icons/fa"
+import { Select } from "./Select"
 
 interface ISearchBarProps {
   // filters?: any[]
   search: string
   setSearch: React.Dispatch<string>
   set?: string
-  setSet?: React.Dispatch<string>
+  setSet?: React.Dispatch<string | undefined>
   setLoading?: React.Dispatch<boolean>
 }
 
@@ -20,26 +21,28 @@ export const SearchBar: React.FC<ISearchBarProps> = (props) => {
   const { set, setSet, search, setSearch, setLoading } = props
   const { sets } = useSets()
 
+  // TODO: Rename "set" to something less confusing
+  const setNames =
+    sets?.map((set) => ({ value: set.code, displayText: set.name })) || []
+
   const handleSearchChange = (event: any) => {
     setSearch(event.target.value)
     if (setLoading) setLoading(true)
   }
 
-  const handleSetChange = (event: any) => {
-    if (setSet) setSet(event.target.value)
+  const handleSetChange = (value?: string) => {
+    if (setSet) setSet(value)
     if (setLoading) setLoading(true)
   }
 
   return (
     <SearchInputWrapper>
-      <SearchSelect value={set} onChange={handleSetChange}>
-        <option value={""}>Set..</option>
-        {sets.map((set) => (
-          <option key={set.id} value={set.code}>
-            {set.name}
-          </option>
-        ))}
-      </SearchSelect>
+      <Select<string>
+        initialValue={set}
+        selectOptions={setNames}
+        defaultDisplayValue={"Set..."}
+        onSelectionChange={handleSetChange}
+      ></Select>
       <FaSearch />
       <SearchInput value={search} onChange={handleSearchChange} />
     </SearchInputWrapper>
@@ -55,7 +58,7 @@ const SearchInputWrapper = styled.div`
   padding-right: 10px;
   width: auto;
 
-  svg {
+  & > svg {
     margin-left: 2rem;
     margin-right: -2rem;
     width: 16px;
