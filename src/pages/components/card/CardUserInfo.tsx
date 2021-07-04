@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 // Components
 import { CardQuantity } from "./CardQuantity"
+import { CardSellStatus } from "./CardSellStatus"
 
 // Types
 import { ICard } from "../../../types/Card"
@@ -20,7 +21,7 @@ export const CardUserInfo: React.FC<ICardUserInfoProps> = (props) => {
       <CardName>{name}</CardName>
       <CardSet>{set_name}</CardSet>
       <CardQuantity quantity={quantity} id={id} />
-      {/* TODO: <CardSellStatus sellStatus={sellStatus} id={id} /> */}
+      <CardSellStatus sellStatus={sellStatus} id={id} />
     </CardUserInfoWrapper>
   )
 }

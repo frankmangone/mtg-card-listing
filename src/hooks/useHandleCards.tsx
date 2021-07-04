@@ -42,6 +42,16 @@ export const useHandleCards = () => {
     }
   }
 
+  const updateCardField = async <T extends unknown>(
+    id: string,
+    field: string,
+    value: T
+  ) => {
+    await cardsCollection?.doc(id).update({
+      [field]: value,
+    })
+  }
+
   const changeCardQuantity = async (id: string, value: number) => {
     if (value > 0) {
       await cardsCollection?.doc(id).update({
@@ -50,5 +60,5 @@ export const useHandleCards = () => {
     }
   }
 
-  return { saveCard, changeCardQuantity }
+  return { saveCard, changeCardQuantity, updateCardField }
 }
