@@ -73,10 +73,12 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
     // TODO: Better typing
     // Uses tips from:
     // https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element/3028037#3028037
+
     if (!selectRef.current?.contains(event.target)) {
       toggleSelecting()
+      // Change state manually because clickOutsideHandler can't have toggleSelecting as a dependency
+      setSelecting(false)
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -91,6 +93,7 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
     } else {
       window.removeEventListener("click", clickOutsideHandler, true)
     }
+
     // Toggle state variable
     setSelecting(!selecting)
   }
@@ -113,6 +116,9 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
       </SelectValue>
       {selecting && (
         <SelectOptions>
+          <SelectOption onClick={() => selectValue(undefined)}>
+            <p>{defaultDisplayValue}</p>
+          </SelectOption>
           {selectOptions.map(({ value, displayText }) => (
             <SelectOption
               key={value}
@@ -147,7 +153,6 @@ const SelectValue = styled.div<ISelecting>`
   font-size: 1.2rem;
   outline: none;
   padding: 0.8rem;
-  transition: all 0.1s linear;
   ${(props) =>
     props.selecting ? "box-shadow: 0 0 3px 1px var(--color-darkgrey);" : ""}
 
@@ -177,7 +182,7 @@ const SelectOptions = styled.div`
   width: 250px;
   padding: 0.5rem;
   overflow-y: scroll;
-  transition: all 0.1s linear;
+  transition: all 0.05s linear;
   z-index: 20;
 `
 
