@@ -3,7 +3,7 @@ import { useFirebase } from "../context/FirebaseContext"
 import { useDocumentData } from "react-firebase-hooks/firestore"
 
 // Types
-import { SellStatus } from "../types/Card"
+import { ICard, SellStatus } from "../types/Card"
 
 export const useGetCard = (id: string) => {
   const { firestore } = useFirebase()
@@ -11,7 +11,7 @@ export const useGetCard = (id: string) => {
     firestore.doc(`cards/${id}`)
   )
 
-  const card = cardDoc
+  const card: ICard | undefined = cardDoc
     ? {
         name: cardDoc.name,
         imageUrl: cardDoc.imageUrl,
@@ -19,6 +19,7 @@ export const useGetCard = (id: string) => {
         set_name: cardDoc.set_name,
         quantity: cardDoc.quantity,
         sellStatus: cardDoc.sellStatus as SellStatus,
+        prices: cardDoc.prices,
       }
     : undefined
 

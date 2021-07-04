@@ -5,6 +5,7 @@ export interface ICard {
   set_name: string
   quantity: number
   sellStatus: SellStatus
+  prices: IPrices
 }
 
 export interface ILegalities {

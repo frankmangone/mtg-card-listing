@@ -32,7 +32,7 @@ export const CardLegalities: React.FC<ICardLegalitiesProps> = (props) => {
   const { legalities } = props
   return (
     <CardLegalitiesWrapper>
-      <h4>Legality:</h4>
+      <h4>Legality</h4>
       {LEGALITY_KEYS.map((key) => {
         const value = legalities[key as keyof typeof legalities]
 
