@@ -5,34 +5,70 @@ import styled from "styled-components"
 import { FaChevronDown } from "react-icons/fa"
 
 // Hooks
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface ISelectProps<T> {
-  currentValue?: T
-  selectOptions: T[]
-  onSelectionChange: () => void
+  defaultDisplayValue: string
+  initialValue?: T
+  selectOptions: ISelectOption<T>[]
+  onSelectionChange: (value?: T) => void
   children?: JSX.Element | JSX.Element[]
 }
 
-export const Select = <T extends unknown>(props: ISelectProps<T>) => {
-  const [selecting, setSelecting] = useState(false)
+interface ISelectOption<T> {
+  value?: T
+  displayText?: string
+}
 
-  const toggleSelecting = () => {
+/* Reusable custom select component */
+export const Select = <T extends string | number>(props: ISelectProps<T>) => {
+  // Destructure props
+  const {
+    defaultDisplayValue,
+    initialValue,
+    onSelectionChange,
+    selectOptions,
+  } = props
+
+  // Set state variables
+  const [selecting, setSelecting] = useState<boolean>(false)
+  const [currentValue, setCurrentValue] = useState<T | undefined>(undefined)
+
+  useEffect(() => {
+    if (initialValue) setCurrentValue(initialValue)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const toggleSelecting = (): void => {
     setSelecting(!selecting)
+  }
+
+  const selectValue = (value?: T): void => {
+    toggleSelecting()
+    setCurrentValue(value)
+    onSelectionChange(value)
   }
 
   return (
     <SelectWrapper>
       <SelectValue selecting={selecting} onClick={toggleSelecting}>
-        <p>Test</p>
+        <p>{currentValue || defaultDisplayValue}</p>
         <FaChevronDown size={10} />
       </SelectValue>
-      <SelectOptions selecting={selecting}>
-        <SelectOption>a</SelectOption>
-        <SelectOption>b</SelectOption>
-        <SelectOption>c</SelectOption>
-        <SelectOption>d</SelectOption>
-      </SelectOptions>
+      {selecting && (
+        <SelectOptions>
+          {selectOptions.map(({ value, displayText }) => (
+            <SelectOption
+              key={value}
+              onClick={() => {
+                selectValue(value)
+              }}
+            >
+              <p>{displayText}</p>
+            </SelectOption>
+          ))}
+        </SelectOptions>
+      )}
     </SelectWrapper>
   )
 }
@@ -68,21 +104,44 @@ const SelectValue = styled.div<ISelecting>`
   }
 `
 
-const SelectOptions = styled.div<ISelecting>`
+const SelectOptions = styled.div`
   position: absolute;
   top: 100%;
   left: 0;
+  align-items: stretch;
   background-color: var(--color-lightergrey);
   border: none;
   border-radius: 5px;
-  cursor: pointer;
+  box-shadow: 0 0 3px 1px var(--color-darkgrey);
+  display: flex;
+  flex-direction: column;
   font-size: 1.2rem;
   margin-top: 0.5rem;
-  padding: 0.8rem;
-  overflow: hidden;
+  max-height: 400px;
+  width: 250px;
+  padding: 0.5rem;
+  overflow-y: scroll;
   transition: all 0.1s linear;
-  ${(props) =>
-    props.selecting ? "box-shadow: 0 0 3px 1px var(--color-darkgrey);" : ""}
+  z-index: 20;
 `
 
-const SelectOption = styled.button``
+const SelectOption = styled.button`
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: left;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+
+  &:hover {
+    background-color: var(--color-lightgrey);
+  }
+
+  & > p {
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+`

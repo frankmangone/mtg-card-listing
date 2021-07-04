@@ -15,7 +15,7 @@ export const useScryfallQuery = (props: IUseScryfallQueryProps) => {
 
   const querySearchString = useCallback(() => {
     const searchString = search.replace(" ", "+")
-    const setString = set !== "" ? `+e%3A${set}` : ""
+    const setString = set !== undefined ? `+e%3A${set}` : ""
     const queryString = `unique=prints&q=${searchString}${setString}`
 
     fetch(

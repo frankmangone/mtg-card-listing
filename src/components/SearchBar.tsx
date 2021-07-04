@@ -13,7 +13,7 @@ interface ISearchBarProps {
   search: string
   setSearch: React.Dispatch<string>
   set?: string
-  setSet?: React.Dispatch<string>
+  setSet?: React.Dispatch<string | undefined>
   setLoading?: React.Dispatch<boolean>
 }
 
@@ -21,33 +21,28 @@ export const SearchBar: React.FC<ISearchBarProps> = (props) => {
   const { set, setSet, search, setSearch, setLoading } = props
   const { sets } = useSets()
 
+  // TODO: Rename "set" to something less confusing
+  const setNames =
+    sets?.map((set) => ({ value: set.code, displayText: set.name })) || []
+
   const handleSearchChange = (event: any) => {
     setSearch(event.target.value)
     if (setLoading) setLoading(true)
   }
 
-  const handleSetChange = (event: any) => {
-    if (setSet) setSet(event.target.value)
+  const handleSetChange = (value?: string) => {
+    if (setSet) setSet(value)
     if (setLoading) setLoading(true)
   }
 
   return (
     <SearchInputWrapper>
       <Select<string>
-        currentValue={set}
-        selectOptions={["a", "b", "c", "d", "e"]}
-        onSelectionChange={() => {
-          console.log("hola")
-        }}
+        initialValue={set}
+        selectOptions={setNames}
+        defaultDisplayValue={"Set..."}
+        onSelectionChange={handleSetChange}
       ></Select>
-      <SearchSelect value={set} onChange={handleSetChange}>
-        <option value={""}>Set..</option>
-        {sets.map((set) => (
-          <option key={set.id} value={set.code}>
-            {set.name}
-          </option>
-        ))}
-      </SearchSelect>
       <FaSearch />
       <SearchInput value={search} onChange={handleSearchChange} />
     </SearchInputWrapper>
