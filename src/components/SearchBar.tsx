@@ -6,6 +6,7 @@ import { useSets } from "../context/SetsContext"
 
 // Components
 import { FaSearch } from "react-icons/fa"
+import { Select } from "./Select"
 
 interface ISearchBarProps {
   // filters?: any[]
@@ -32,6 +33,13 @@ export const SearchBar: React.FC<ISearchBarProps> = (props) => {
 
   return (
     <SearchInputWrapper>
+      <Select<string>
+        currentValue={set}
+        selectOptions={["a", "b", "c", "d", "e"]}
+        onSelectionChange={() => {
+          console.log("hola")
+        }}
+      ></Select>
       <SearchSelect value={set} onChange={handleSetChange}>
         <option value={""}>Set..</option>
         {sets.map((set) => (
@@ -55,7 +63,7 @@ const SearchInputWrapper = styled.div`
   padding-right: 10px;
   width: auto;
 
-  svg {
+  & > svg {
     margin-left: 2rem;
     margin-right: -2rem;
     width: 16px;
