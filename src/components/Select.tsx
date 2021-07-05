@@ -10,7 +10,7 @@ import { useEffect, useState, useRef, useCallback } from "react"
 
 interface ISelectProps<T> {
   defaultDisplayValue: string
-  initialValue?: T
+  initialValue?: ISelectOption<T>
   selectOptions: ISelectOption<T>[]
   onSelectionChange: (value?: T) => void
   children?: JSX.Element | JSX.Element[]
@@ -50,7 +50,7 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
 
   useEffect(() => {
     // Save initialValue provided as prop to currentValue, if present
-    if (initialValue) setCurrentValue(initialValue)
+    if (initialValue) setCurrentValue(initialValue.value)
 
     // Save ref to rendered Select component
     selectRef.current = document.getElementById(id.current)
@@ -111,14 +111,21 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
     onSelectionChange(value)
   }
 
+  /*
+   * Current selected value data
+   */
+  const currentValueOption: ISelectOption<T> | undefined = selectOptions.find(
+    (option) => option.value === currentValue
+  )
+
   return (
     <SelectWrapper id={id.current}>
       <SelectValue selecting={selecting} onClick={toggleSelecting}>
-        <p>{currentValue || defaultDisplayValue}</p>
+        <p>{currentValueOption?.collapsedDisplayText || defaultDisplayValue}</p>
         <FaChevronDown size={10} />
       </SelectValue>
       {selecting && (
-        <SelectOptions alignment={alignment || "right"}>
+        <SelectOptions alignment={alignment || "left"}>
           <SelectOption onClick={() => selectValue(undefined)}>
             <p>{defaultDisplayValue}</p>
           </SelectOption>

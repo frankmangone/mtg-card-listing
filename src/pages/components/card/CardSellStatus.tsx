@@ -9,21 +9,29 @@ import { useHandleCards } from "../../../hooks/useHandleCards"
 import { capitalize } from "../../../helpers/capitalize"
 
 // Types
-import { SELL_STATUSES } from "../../../types/Card"
+import { SELL_STATUS, SELL_STATUS_TEXT } from "../../../types/Card"
 
 interface ICardSellStatusProps {
   id: string
   sellStatus: number
 }
 
-const sellStatuses = Object.entries(SELL_STATUSES).map(([status, value]) => ({
+const sellStatuses = Object.entries(SELL_STATUS).map(([status, value]) => ({
   value: value,
   displayText: capitalize(status),
+  collapsedDisplayText: capitalize(status),
 }))
 
 export const CardSellStatus: React.FC<ICardSellStatusProps> = (props) => {
   const { sellStatus, id } = props
   const { updateCardField } = useHandleCards()
+
+  const initialValue = {
+    value: sellStatus,
+    displayText: SELL_STATUS_TEXT[sellStatus as keyof typeof SELL_STATUS_TEXT],
+    collapsedDisplayText:
+      SELL_STATUS_TEXT[sellStatus as keyof typeof SELL_STATUS_TEXT],
+  }
 
   const changeSellStatus = (value?: number) => {
     updateCardField(id, "sellStatus", value)
@@ -34,7 +42,7 @@ export const CardSellStatus: React.FC<ICardSellStatusProps> = (props) => {
       <Title>Status:</Title>
       <Spacer />
       <Select
-        initialValue={sellStatus}
+        initialValue={initialValue}
         defaultDisplayValue="Select..."
         selectOptions={sellStatuses}
         onSelectionChange={changeSellStatus}

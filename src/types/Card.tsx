@@ -33,8 +33,14 @@ export interface IPrices {
 }
 
 export type SellStatus = 1 | 2 | 3
-export const SELL_STATUSES = {
+export const SELL_STATUS = {
   INACTIVE: 1,
   SELLING: 2,
   BUYING: 3,
+}
+
+export const SELL_STATUS_TEXT = {
+  1: "Inactive",
+  2: "Selling",
+  3: "Buying",
 }
