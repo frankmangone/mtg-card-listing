@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 // Components
 import { CardImageDisplayer } from "../../../components/CardImageDisplayer"
+import { CardPrices } from "./CardPrices"
 import { CardLegalities } from "./CardLegalities"
 import { CardUserInfo } from "./CardUserInfo"
 
@@ -16,12 +17,13 @@ interface ICardDisplayProps {
 
 export const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
   const { card, id } = props
-  const { imageUrl, legalities } = card
+  const { imageUrl, legalities, prices } = card
 
   return (
     <CardViewWrapper>
       <CardDetails>
         <CardImageDisplayer imageUrl={imageUrl} parentFlexDirection="column" />
+        <CardPrices prices={prices} />
         <CardLegalities legalities={legalities} />
       </CardDetails>
       <CardUserInfo card={card} id={id} />

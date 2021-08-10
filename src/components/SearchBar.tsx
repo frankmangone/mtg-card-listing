@@ -23,7 +23,22 @@ export const SearchBar: React.FC<ISearchBarProps> = (props) => {
 
   // TODO: Rename "set" to something less confusing
   const setNames =
-    sets?.map((set) => ({ value: set.code, displayText: set.name })) || []
+    sets?.map((set) => ({
+      value: set.code,
+      displayText: set.name,
+      collapsedDisplayText: set.code?.toUpperCase(),
+    })) || []
+
+  const setOption = (targetSet?: string) => {
+    const setData = sets?.find((set) => set.code === targetSet)
+    if (!setData) return undefined
+    else
+      return {
+        value: setData.code,
+        displayText: setData.name,
+        collapsedDisplayText: setData.code?.toUpperCase(),
+      }
+  }
 
   const handleSearchChange = (event: any) => {
     setSearch(event.target.value)
@@ -38,7 +53,7 @@ export const SearchBar: React.FC<ISearchBarProps> = (props) => {
   return (
     <SearchInputWrapper>
       <Select<string>
-        initialValue={set}
+        initialValue={setOption(set)}
         selectOptions={setNames}
         defaultDisplayValue={"Set..."}
         onSelectionChange={handleSetChange}
