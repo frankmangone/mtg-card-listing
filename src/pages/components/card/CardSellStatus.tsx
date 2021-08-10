@@ -5,9 +5,6 @@ import { CardInfoField, Title, Spacer } from "./CardInfoField"
 // Hooks
 import { useHandleCards } from "../../../hooks/useHandleCards"
 
-// Helpers
-import { capitalize } from "../../../helpers/capitalize"
-
 // Types
 import { SELL_STATUS, SELL_STATUS_TEXT } from "../../../types/Card"
 
@@ -18,8 +15,9 @@ interface ICardSellStatusProps {
 
 const sellStatuses = Object.entries(SELL_STATUS).map(([status, value]) => ({
   value: value,
-  displayText: capitalize(status),
-  collapsedDisplayText: capitalize(status),
+  displayText: SELL_STATUS_TEXT[value as keyof typeof SELL_STATUS_TEXT],
+  collapsedDisplayText:
+    SELL_STATUS_TEXT[value as keyof typeof SELL_STATUS_TEXT],
 }))
 
 export const CardSellStatus: React.FC<ICardSellStatusProps> = (props) => {

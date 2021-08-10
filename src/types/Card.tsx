@@ -40,7 +40,7 @@ export const SELL_STATUS = {
 }
 
 export const SELL_STATUS_TEXT = {
-  1: "Inactive",
+  1: "In Collection",
   2: "Selling",
   3: "Buying",
 }
