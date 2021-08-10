@@ -11,7 +11,7 @@ export const Title = styled.p`
 `
 
 export const Value = styled.p`
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-align: right;
   margin-right: 0.35rem;
 `

@@ -15,6 +15,7 @@ interface ISelectProps<T> {
   onSelectionChange: (value?: T) => void
   children?: JSX.Element | JSX.Element[]
   alignment?: string
+  fontSize?: string
 }
 
 interface ISelectOption<T> {
@@ -32,6 +33,7 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
     initialValue,
     onSelectionChange,
     selectOptions,
+    fontSize,
   } = props
 
   // Set state variables
@@ -121,14 +123,18 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
   return (
     <SelectWrapper id={id.current}>
       <SelectValue selecting={selecting} onClick={toggleSelecting}>
-        <p>{currentValueOption?.collapsedDisplayText || defaultDisplayValue}</p>
+        <Text fontSize={fontSize}>
+          {currentValueOption?.collapsedDisplayText || defaultDisplayValue}
+        </Text>
         <FaChevronDown size={10} />
       </SelectValue>
       {selecting && (
         <SelectOptions alignment={alignment || "left"}>
-          {defaultDisplayValue && <SelectOption onClick={() => selectValue(undefined)}>
-            <p>{defaultDisplayValue}</p>
-          </SelectOption>}
+          {defaultDisplayValue && (
+            <SelectOption onClick={() => selectValue(undefined)}>
+              <Text fontSize={fontSize}>{defaultDisplayValue}</Text>
+            </SelectOption>
+          )}
           {selectOptions.map(({ value, displayText }) => (
             <SelectOption
               key={value}
@@ -136,7 +142,7 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
                 selectValue(value)
               }}
             >
-              <p>{displayText}</p>
+              <Text fontSize={fontSize}>{displayText}</Text>
             </SelectOption>
           ))}
         </SelectOptions>
@@ -213,11 +219,17 @@ const SelectOption = styled.button`
   &:hover {
     background-color: var(--color-lightgrey);
   }
+`
 
-  & > p {
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
-  }
+interface ITextProps {
+  fontSize?: string
+}
+
+const Text = styled.p<ITextProps>`
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+
+  ${(props) => (props.fontSize ? `font-size: ${props.fontSize};` : "")}
 `

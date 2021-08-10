@@ -53,6 +53,7 @@ const CardPrice = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  flex-basis: 33.33%;
   margin-left: 0.25rem;
   margin-right: 0.25rem;
   padding-top: 0.5rem;

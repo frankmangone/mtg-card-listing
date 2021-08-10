@@ -42,6 +42,7 @@ export const CardSellStatus: React.FC<ICardSellStatusProps> = (props) => {
       <Title>Status:</Title>
       <Spacer />
       <Select
+        fontSize="1rem"
         initialValue={initialValue}
         selectOptions={sellStatuses}
         onSelectionChange={changeSellStatus}
