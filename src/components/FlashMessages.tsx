@@ -6,21 +6,18 @@ import { Button } from "./Button"
 import { FaTimes } from "react-icons/fa"
 
 // Hooks
-import { useEffect, useRef } from "react"
-import { useFlashMessage } from "../context/FlashMessageContext"
+import { useFlashMessage, FADE_DURATION } from "../context/FlashMessageContext"
 
 // Types
 import { TTheme } from "./Button"
 
-const AUTODESTROY_TIMEOUT = 5000 // [ms]
-
 export const FlashMessages: React.FC = () => {
-  const { flashMessages } = useFlashMessage()
+  const { fading, flashMessages } = useFlashMessage()
 
   return (
-    <FlashMessagesWrapper>
+    <FlashMessagesWrapper id="flash-messages">
       {flashMessages.map((message) => (
-        <FlashMessage id={message.key} {...message} />
+        <FlashMessage id={message.key} fading={fading} {...message} />
       ))}
     </FlashMessagesWrapper>
   )
@@ -40,26 +37,19 @@ interface IFlashMessageProps {
   text: string
   id: string
   theme?: string
+  fading: boolean
 }
 
 const FlashMessage: React.FC<IFlashMessageProps> = (props) => {
   const { removeFlashMessage } = useFlashMessage()
-  const { id, text, theme } = props
-
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  useEffect(() => {
-    timeoutRef.current = setTimeout(() => {
-      removeFlashMessage(id)
-    }, AUTODESTROY_TIMEOUT)
-  }, [id, removeFlashMessage])
+  const { id, fading, text, theme } = props
 
   const removeMessage = () => {
     removeFlashMessage(id)
   }
 
   return (
-    <FlashMessageWrapper theme={theme}>
+    <FlashMessageWrapper theme={theme} fading={fading}>
       <p>{text}</p>
       <Button
         theme={theme as TTheme}
@@ -73,6 +63,7 @@ const FlashMessage: React.FC<IFlashMessageProps> = (props) => {
 
 interface IFlashMessageWrapperProps {
   theme?: string
+  fading: boolean
 }
 
 const FlashMessageWrapper = styled.div<IFlashMessageWrapperProps>`
@@ -100,11 +91,16 @@ const FlashMessageWrapper = styled.div<IFlashMessageWrapperProps>`
   border-radius: 5px;
   display: flex;
   padding: 20px 10px 20px 20px;
-  animation-name: fade;
-  animation-animation-timing-function: linear;
-  animation-duration: ${AUTODESTROY_TIMEOUT}ms;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
+  ${(props) =>
+    props.fading
+      ? `
+    animation-name: fade;
+    animation-timing-function: linear;
+    animation-duration: ${FADE_DURATION - 10}ms;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  `
+      : ""}
 
   &:not(:last-child) {
     margin-bottom: 10px;
@@ -116,19 +112,11 @@ const FlashMessageWrapper = styled.div<IFlashMessageWrapperProps>`
 
   /* Fade animation for autodestroy */
   @keyframes fade {
-    0% {
-      opacity: 0;
-    }
-
-    5% {
+    from {
       opacity: 1;
     }
 
-    90% {
-      opacity: 1;
-    }
-
-    100% {
+    to {
       opacity: 0;
     }
   }
