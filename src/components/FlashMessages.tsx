@@ -6,52 +6,13 @@ import { Button } from "./Button"
 import { FaTimes } from "react-icons/fa"
 
 // Hooks
-import { useEffect, useRef, useState } from "react"
-import { useFlashMessage } from "../context/FlashMessageContext"
+import { useFlashMessage, FADE_DURATION } from "../context/FlashMessageContext"
 
 // Types
 import { TTheme } from "./Button"
 
-const AUTODESTROY_TIMEOUT = 4000 // [ms]
-const FADE_DURATION = 1000 // [ms]
-
 export const FlashMessages: React.FC = () => {
-  const { flashMessages, clearFlashMessages } = useFlashMessage()
-
-  const [fading, setFading] = useState<boolean>(false)
-
-  const flashMessagesCount = useRef<number>(0)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const fadeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  /**
-   * Implement a debounce on flash messages autodestroy
-   *  */
-  useEffect(() => {
-    if (flashMessagesCount.current !== flashMessages.length) {
-      // Update messages count
-      flashMessagesCount.current = flashMessages.length
-
-      // Clear previous timeouts
-      clearTimeout(timeoutRef.current as ReturnType<typeof setTimeout>)
-      clearTimeout(fadeTimeoutRef.current as ReturnType<typeof setTimeout>)
-
-      // Set a new timeout for destroying messages (the debounce)
-      if (flashMessagesCount.current !== 0) {
-        timeoutRef.current = setTimeout(() => {
-          clearFlashMessages()
-          clearTimeout(timeoutRef.current as ReturnType<typeof setTimeout>)
-          console.log("hey from timeout!")
-          setFading(false)
-        }, AUTODESTROY_TIMEOUT)
-
-        fadeTimeoutRef.current = setTimeout(() => {
-          setFading(true)
-          clearTimeout(fadeTimeoutRef.current as ReturnType<typeof setTimeout>)
-        }, AUTODESTROY_TIMEOUT - FADE_DURATION)
-      }
-    }
-  }, [clearFlashMessages, flashMessages])
+  const { fading, flashMessages } = useFlashMessage()
 
   return (
     <FlashMessagesWrapper id="flash-messages">
