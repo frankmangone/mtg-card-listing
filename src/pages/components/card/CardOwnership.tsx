@@ -66,7 +66,7 @@ export const CardOwnership: React.FC<ICardOwnershipProps> = (props) => {
           <Text>From:</Text>
           <Input
             value={ownershipSubject}
-            placeholder="Who are the card(s) from?"
+            placeholder="Who owns the card(s)?"
             onChange={changeOwnershipSubject}
           />
         </>
