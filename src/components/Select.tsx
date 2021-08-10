@@ -9,7 +9,7 @@ import { FaChevronDown } from "react-icons/fa"
 import { useEffect, useState, useRef, useCallback } from "react"
 
 interface ISelectProps<T> {
-  defaultDisplayValue: string
+  defaultDisplayValue?: string
   initialValue?: ISelectOption<T>
   selectOptions: ISelectOption<T>[]
   onSelectionChange: (value?: T) => void
@@ -126,9 +126,9 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
       </SelectValue>
       {selecting && (
         <SelectOptions alignment={alignment || "left"}>
-          <SelectOption onClick={() => selectValue(undefined)}>
+          {defaultDisplayValue && <SelectOption onClick={() => selectValue(undefined)}>
             <p>{defaultDisplayValue}</p>
-          </SelectOption>
+          </SelectOption>}
           {selectOptions.map(({ value, displayText }) => (
             <SelectOption
               key={value}

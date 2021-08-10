@@ -43,7 +43,6 @@ export const CardSellStatus: React.FC<ICardSellStatusProps> = (props) => {
       <Spacer />
       <Select
         initialValue={initialValue}
-        defaultDisplayValue="Select..."
         selectOptions={sellStatuses}
         onSelectionChange={changeSellStatus}
         alignment="right"
