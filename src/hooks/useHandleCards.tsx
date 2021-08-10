@@ -30,6 +30,7 @@ export const useHandleCards = () => {
       const success = await cardsCollection.add({
         userId: uid,
         createdAt: firestore.FieldValue?.serverTimestamp() || new Date(),
+        location: "",
         ...data,
       })
 

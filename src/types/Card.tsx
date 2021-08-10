@@ -6,6 +6,7 @@ export interface ICard {
   quantity: number
   sellStatus: SellStatus
   prices: IPrices
+  location: string
 }
 
 export interface ILegalities {

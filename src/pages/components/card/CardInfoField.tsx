@@ -21,3 +21,13 @@ export const Spacer = styled.div`
   background-color: var(--color-lightgrey);
   margin-right: 1rem;
 `
+
+export const Input = styled.input`
+  background-color: var(--color-lightgrey);
+  border: none;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  padding: 0.5rem;
+`
