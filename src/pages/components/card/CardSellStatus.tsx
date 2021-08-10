@@ -37,7 +37,7 @@ export const CardSellStatus: React.FC<ICardSellStatusProps> = (props) => {
 
   return (
     <CardInfoField>
-      <Title>Status:</Title>
+      <Title>Sell status:</Title>
       <Spacer />
       <Select
         fontSize="1rem"

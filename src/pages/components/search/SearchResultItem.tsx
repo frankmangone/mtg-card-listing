@@ -48,6 +48,9 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
             quantity: 1,
             set_name: searchResult.set_name,
             sellStatus: 1,
+            ownership: 1,
+            ownershipSubject: "",
+            location: "",
           })
         }
       />

@@ -4,7 +4,7 @@ import { useFlashMessage } from "../context/FlashMessageContext"
 import { useFirebase } from "../context/FirebaseContext"
 
 // Types
-import { ILegalities, IPrices, SellStatus } from "../types/Card"
+import { ILegalities, IPrices, SellStatus, Ownership } from "../types/Card"
 
 interface ISaveData {
   name: string
@@ -13,6 +13,9 @@ interface ISaveData {
   prices: IPrices
   quantity: number
   sellStatus: SellStatus
+  ownership: Ownership
+  ownershipSubject: string
+  location: string
   set_name: string
 }
 
@@ -30,7 +33,6 @@ export const useHandleCards = () => {
       const success = await cardsCollection.add({
         userId: uid,
         createdAt: firestore.FieldValue?.serverTimestamp() || new Date(),
-        location: "",
         ...data,
       })
 

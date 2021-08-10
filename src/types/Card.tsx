@@ -5,6 +5,8 @@ export interface ICard {
   set_name: string
   quantity: number
   sellStatus: SellStatus
+  ownership: Ownership
+  ownershipSubject: string
   prices: IPrices
   location: string
 }
@@ -44,4 +46,17 @@ export const SELL_STATUS_TEXT = {
   1: "In Collection",
   2: "Selling",
   3: "Buying",
+}
+
+export type Ownership = 1 | 2 | 3
+export const OWNERSHIP = {
+  MINE: 1,
+  LENT: 2,
+  BORROWED: 3,
+}
+
+export const OWNERSHIP_TEXT = {
+  1: "Mine",
+  2: "Lent",
+  3: "Borrowed",
 }

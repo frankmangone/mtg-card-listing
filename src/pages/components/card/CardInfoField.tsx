@@ -4,6 +4,8 @@ import styled from "styled-components"
 export const CardInfoField = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 `
 export const Title = styled.p`
   color: var(--color-darkgrey);
@@ -29,5 +31,5 @@ export const Input = styled.input`
   font-family: inherit;
   font-size: 1rem;
   outline: none;
-  padding: 0.5rem;
+  padding: 0.8rem;
 `

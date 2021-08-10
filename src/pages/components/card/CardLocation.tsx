@@ -11,7 +11,7 @@ interface ICardLocationProps {
 }
 
 export const CardLocation: React.FC<ICardLocationProps> = (props) => {
-  const { location, placeholder, id } = props
+  const { location, id } = props
   const { updateCardField } = useHandleCards()
 
   const changeLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +23,7 @@ export const CardLocation: React.FC<ICardLocationProps> = (props) => {
       <Title>Location:</Title>
       <Spacer />
       <Input
-        placeholder={placeholder || ""}
+        placeholder="Add location..."
         value={location}
         onChange={changeLocation}
       />
