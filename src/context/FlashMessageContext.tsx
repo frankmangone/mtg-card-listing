@@ -39,12 +39,21 @@ export const useFlashMessage = () => {
 
   const removeFlashMessage = (key: string) => {
     const index = flashMessages.findIndex((element) => element.key === key)
-    if (index === -1) return
+    if (index === -1) return // 'key' not found
     setFlashMessages([
       ...flashMessages.slice(0, index),
       ...flashMessages.slice(index + 1, flashMessages.length),
     ])
   }
 
-  return { flashMessages, addFlashMessage, removeFlashMessage }
+  const clearFlashMessages = () => {
+    setFlashMessages([])
+  }
+
+  return {
+    flashMessages,
+    addFlashMessage,
+    removeFlashMessage,
+    clearFlashMessages,
+  }
 }
