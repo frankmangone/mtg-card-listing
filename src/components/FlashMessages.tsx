@@ -23,15 +23,6 @@ export const FlashMessages: React.FC = () => {
   const flashMessagesCount = useRef<number>(0)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const fadeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const flashMessagesRef = useRef<HTMLElement | null>(null)
-
-  /**
-   * On component initialization, get a reference to the div element for
-   * opacity manipulation
-   */
-  useEffect(() => {
-    flashMessagesRef.current = document.getElementById("flash-messages")
-  }, [])
 
   /**
    * Implement a debounce on flash messages autodestroy
