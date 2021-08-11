@@ -64,5 +64,5 @@ const CollectionListWrapper = styled.div`
 const SpinnerContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
+  margin-top: 50px;
 `
