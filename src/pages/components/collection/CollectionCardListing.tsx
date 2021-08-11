@@ -5,6 +5,7 @@ import styled from "styled-components"
 import { useCollection } from "../../../hooks/useCollection"
 import { useHandleCards } from "../../../hooks/useHandleCards"
 import { useFlashMessage } from "../../../context/FlashMessageContext"
+import { useUser } from "../../../context/FirebaseContext"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 
 // Components
@@ -12,10 +13,14 @@ import { CollectionCardItem } from "./CollectionCardItem"
 import { LoadSpinner } from "../../../components/LoadSpinner"
 
 export const CollectionCardListing: React.FC = () => {
+  const { user } = useUser()
   const cardsCollection = useCollection("cards")
-  const query = cardsCollection.orderBy("createdAt", "desc").limit(100)
+  const query = cardsCollection
+    .orderBy("createdAt", "desc")
+    .limit(100)
+    .where("userId", "==", user?.uid)
 
-  const [cards] = useCollectionData(query, { idField: "id" })
+  const [cards, loading, error] = useCollectionData(query, { idField: "id" })
   const { changeCardQuantity, deleteCard } = useHandleCards()
   const { addFlashMessage } = useFlashMessage()
 
@@ -30,7 +35,7 @@ export const CollectionCardListing: React.FC = () => {
   return (
     <CollectionListWrapper>
       {/* Show spinner while loading */}
-      {!cards && (
+      {loading && (
         <SpinnerContainer>
           <LoadSpinner />
         </SpinnerContainer>
