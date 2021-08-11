@@ -44,18 +44,7 @@ export const CollectionCardListing: React.FC = () => {
         </SpinnerContainer>
       )}
 
-      {cards?.map(({ id, name, quantity }) => (
-        <CollectionCardItem
-          key={id}
-          id={id}
-          name={name}
-          quantity={quantity}
-          increaseCardQuantity={() => changeCardQuantity(id, quantity + 1)}
-          decreaseCardQuantity={() => changeCardQuantity(id, quantity - 1)}
-          deleteCard={() => deleteCardById(id, name)}
-        />
-      ))}
-
+      {/* If no cards are found, show that info to user */}
       {cards && cards.length === 0 && (
         <NoDataContainer>
           <p>You have no cards in your collection</p>
@@ -68,6 +57,39 @@ export const CollectionCardListing: React.FC = () => {
           </Button>
         </NoDataContainer>
       )}
+
+      {/* If errors are present, show message */}
+      {error && (
+        <ErrorContainer>
+          <p>An error ocurring while loading you collection</p>
+        </ErrorContainer>
+      )}
+
+      {cards && (
+        <ButtonWrapper>
+          <Button
+            padding="0.6rem 2rem"
+            theme="success"
+            fontSize={16}
+            onClick={() => {
+              history.push("/search")
+            }}
+          >
+            Add card
+          </Button>
+        </ButtonWrapper>
+      )}
+      {cards?.map(({ id, name, quantity }) => (
+        <CollectionCardItem
+          key={id}
+          id={id}
+          name={name}
+          quantity={quantity}
+          increaseCardQuantity={() => changeCardQuantity(id, quantity + 1)}
+          decreaseCardQuantity={() => changeCardQuantity(id, quantity - 1)}
+          deleteCard={() => deleteCardById(id, name)}
+        />
+      ))}
     </CollectionListWrapper>
   )
 }
@@ -95,6 +117,29 @@ const NoDataContainer = styled.div`
   margin-right: auto;
   margin-top: 50px;
 
+  p {
+    color: var(--color-grey);
+  }
+`
+
+const ErrorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+
+  p {
+    color: var(--color-cancel);
+  }
+`
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-basis: 100%;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
   p {
     color: var(--color-grey);
   }
