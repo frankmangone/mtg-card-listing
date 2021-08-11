@@ -45,7 +45,7 @@ export const CollectionCardListing: React.FC = () => {
       )}
 
       {/* If no cards are found, show that info to user */}
-      {cards && cards.length === 0 && (
+      {cards && cards?.length === 0 && (
         <NoDataContainer>
           <p>You have no cards in your collection</p>
           <Button
@@ -65,7 +65,7 @@ export const CollectionCardListing: React.FC = () => {
         </ErrorContainer>
       )}
 
-      {cards && (
+      {cards?.length !== 0 && !error && !loading && (
         <ButtonWrapper>
           <Button
             padding="0.6rem 2rem"
@@ -135,12 +135,7 @@ const ErrorContainer = styled.div`
 `
 
 const ButtonWrapper = styled.div`
-  display: flex;
-  flex-basis: 100%;
-  justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  p {
-    color: var(--color-grey);
-  }
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 `
