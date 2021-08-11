@@ -24,7 +24,11 @@ export const CardPage: React.FC = () => {
     <MainLayout>
       <CardPageWrapper>
         {/* Spinner while loading */}
-        {loading && <LoadSpinner />}
+        {loading && (
+          <SpinnerContainer>
+            <LoadSpinner />
+          </SpinnerContainer>
+        )}
 
         {/* Show card when succesfully retrieved */}
         {card && <CardDisplay card={card} id={id} />}
@@ -43,4 +47,10 @@ const CardPageWrapper = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
   margin-top: 0.8rem;
+`
+
+const SpinnerContainer = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
 `

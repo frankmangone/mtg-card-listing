@@ -10,6 +10,7 @@ interface IButtonProps {
   theme?: TTheme
   styling?: "solid" | "light" | "transparent"
   fontSize?: number
+  padding?: string
   width?: number
 }
 
@@ -91,6 +92,7 @@ interface IStyledButtonProps {
   borderHover: string
   colorHover: string
   fontSize?: number
+  padding?: string
   width?: number
 }
 
@@ -105,7 +107,7 @@ export const StyledButton = styled.button<IStyledButtonProps>`
   align-items: center;
   width: ${(props) => (props.width ? `${props.width}px` : "auto")};
   font-size: ${(props) => (props.fontSize ? `${props.fontSize}px` : "15px")};
-  padding: 0.35rem;
+  padding: ${(props) => (props.padding ? props.padding : "0.35rem")};
 
   &:hover {
     background-color: ${(props) => props.backgroundColorHover};

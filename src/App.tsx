@@ -6,6 +6,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import "firebase/firestore"
 import "firebase/auth"
 
+/**
+ * For firebase hooks:
+ * https://github.com/CSFrequency/react-firebase-hooks/blob/master/firestore/README.md
+ */
+
 // Context
 import { FirebaseContext } from "./context/FirebaseContext"
 import {
