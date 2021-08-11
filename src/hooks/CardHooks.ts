@@ -3,10 +3,17 @@ import { useCollection } from "./useCollection"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import { useDocumentData } from "react-firebase-hooks/firestore"
 import { useFirebase } from "../context/FirebaseContext"
+import { useFlashMessage } from "../context/FlashMessageContext"
 import { useUser } from "../context/FirebaseContext"
 
 // Types
-import { ICard } from "../types/Card"
+import {
+  ICard,
+  ILegalities,
+  IPrices,
+  SellStatus,
+  Ownership,
+} from "../types/Card"
 
 /**
  * Gets a single card document
@@ -60,4 +67,103 @@ export const useGetCards = (options?: IOptions) => {
   const [cards, loading, error] = useCollectionData(query, { idField: "id" })
 
   return { cards, loading, error }
+}
+
+/**
+ * Returns a function to save card data to firestore
+ * @returns { saveCard }
+ */
+interface ISaveData {
+  name: string
+  imageUrl: string
+  legalities: ILegalities
+  prices: IPrices
+  quantity: number
+  sellStatus: SellStatus
+  ownership: Ownership
+  ownershipSubject: string
+  location: string
+  set_name: string
+}
+
+export const useSaveCard = () => {
+  const { auth, firestore } = useFirebase()
+  const cardsCollection = useCollection("cards")
+  const { addFlashMessage } = useFlashMessage()
+
+  const saveCard = async (data: ISaveData, event?: any) => {
+    if (event) event.preventDefault() // For form submits, if necessary
+
+    if (auth.currentUser) {
+      const { uid } = auth.currentUser
+
+      const success = await cardsCollection.add({
+        userId: uid,
+        createdAt: firestore.FieldValue?.serverTimestamp() || new Date(),
+        ...data,
+      })
+
+      if (success) {
+        addFlashMessage({
+          text: `'${data.name}' was added to your collection`,
+          theme: "success",
+        })
+      }
+    }
+  }
+
+  return { saveCard }
+}
+
+/**
+ * Returns a function to update a field in a card document
+ * @returns { updateCardField }
+ */
+export const useUpdateCardField = () => {
+  const cardsCollection = useCollection("cards")
+
+  const updateCardField = async <T extends unknown>(
+    id: string,
+    field: string,
+    value: T
+  ) => {
+    await cardsCollection?.doc(id).update({
+      [field]: value,
+    })
+  }
+
+  return { updateCardField }
+}
+
+/**
+ * Returns a function to change quantity of a card
+ * @returns { changeCardQuantity }
+ */
+export const useChangeCardQuantity = () => {
+  const cardsCollection = useCollection("cards")
+
+  const changeCardQuantity = async (id: string, value: number) => {
+    if (value > 0) {
+      await cardsCollection?.doc(id).update({
+        quantity: value,
+      })
+    }
+  }
+
+  return { changeCardQuantity }
+}
+
+/**
+ * Returns a function to delete a single card document
+ * TODO: Add permisson check!!
+ * @returns { deleteCard }
+ */
+export const useDeleteCard = () => {
+  const cardsCollection = useCollection("cards")
+
+  const deleteCard = async (id: string) => {
+    await cardsCollection.doc(id).delete()
+  }
+
+  return { deleteCard }
 }

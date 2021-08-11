@@ -2,7 +2,7 @@
 import styled from "styled-components"
 
 // Hooks
-import { useHandleCards } from "../../../hooks/useHandleCards"
+import { useSaveCard } from "../../../hooks/CardHooks"
 
 // Components
 import { Button } from "../../../components/Button"
@@ -18,7 +18,7 @@ interface ISearchResultsItemProps {
 
 export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
   const { searchResult, setImagePreviewUrl } = props
-  const { saveCard } = useHandleCards()
+  const { saveCard } = useSaveCard()
 
   const imageUrl =
     searchResult.image_uris?.normal ||

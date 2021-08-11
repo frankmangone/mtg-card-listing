@@ -3,9 +3,12 @@ import styled from "styled-components"
 
 // Hooks
 import { useHistory } from "react-router-dom"
-import { useHandleCards } from "../../../hooks/useHandleCards"
 import { useFlashMessage } from "../../../context/FlashMessageContext"
-import { useGetCards } from "../../../hooks/CardHooks"
+import {
+  useChangeCardQuantity,
+  useDeleteCard,
+  useGetCards,
+} from "../../../hooks/CardHooks"
 
 // Components
 import { Button } from "../../../components/Button"
@@ -15,7 +18,8 @@ import { LoadSpinner } from "../../../components/LoadSpinner"
 export const CollectionCardListing: React.FC = () => {
   const history = useHistory()
   const { cards, loading, error } = useGetCards()
-  const { changeCardQuantity, deleteCard } = useHandleCards()
+  const { changeCardQuantity } = useChangeCardQuantity()
+  const { deleteCard } = useDeleteCard()
   const { addFlashMessage } = useFlashMessage()
 
   const deleteCardById = (id: string, name: string) => {
