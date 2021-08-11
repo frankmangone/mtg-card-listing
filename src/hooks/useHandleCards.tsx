@@ -63,5 +63,9 @@ export const useHandleCards = () => {
     }
   }
 
-  return { saveCard, changeCardQuantity, updateCardField }
+  const deleteCard = async (id: string) => {
+    await cardsCollection.doc(id).delete()
+  }
+
+  return { saveCard, changeCardQuantity, updateCardField, deleteCard }
 }

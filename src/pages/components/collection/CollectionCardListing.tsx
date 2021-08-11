@@ -15,15 +15,15 @@ export const CollectionCardListing: React.FC = () => {
   const query = cardsCollection.orderBy("createdAt", "desc").limit(100)
 
   const [cards] = useCollectionData(query, { idField: "id" })
-  const { changeCardQuantity } = useHandleCards()
+  const { changeCardQuantity, deleteCard } = useHandleCards()
   const { addFlashMessage } = useFlashMessage()
 
-  const deleteCard = (id: string, name: string) => {
+  const deleteCardById = (id: string, name: string) => {
     addFlashMessage({
       text: `'${name}' was removed from your collection.`,
       theme: "cancel",
     })
-    cardsCollection.doc(id).delete()
+    deleteCard(id)
   }
 
   return (
@@ -36,7 +36,7 @@ export const CollectionCardListing: React.FC = () => {
           quantity={quantity}
           increaseCardQuantity={() => changeCardQuantity(id, quantity + 1)}
           decreaseCardQuantity={() => changeCardQuantity(id, quantity - 1)}
-          deleteCard={() => deleteCard(id, name)}
+          deleteCard={() => deleteCardById(id, name)}
         />
       ))}
     </CollectionListWrapper>
