@@ -65,6 +65,7 @@ export const CollectionCardListing: React.FC = () => {
         </ErrorContainer>
       )}
 
+      {/* When cards have loaded, show both add button & cards */}
       {cards?.length !== 0 && !error && !loading && (
         <ButtonWrapper>
           <Button
