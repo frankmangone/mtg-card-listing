@@ -9,6 +9,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore"
 
 // Components
 import { CollectionCardItem } from "./CollectionCardItem"
+import { LoadSpinner } from "../../../components/LoadSpinner"
 
 export const CollectionCardListing: React.FC = () => {
   const cardsCollection = useCollection("cards")
@@ -28,6 +29,13 @@ export const CollectionCardListing: React.FC = () => {
 
   return (
     <CollectionListWrapper>
+      {/* Show spinner while loading */}
+      {!cards && (
+        <SpinnerContainer>
+          <LoadSpinner />
+        </SpinnerContainer>
+      )}
+
       {cards?.map(({ id, name, quantity }) => (
         <CollectionCardItem
           key={id}
@@ -51,4 +59,10 @@ const CollectionListWrapper = styled.div`
   width: 100%;
   max-width: 1100px;
   margin-top: 10px;
+`
+
+const SpinnerContainer = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
 `
