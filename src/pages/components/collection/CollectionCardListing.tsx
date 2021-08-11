@@ -3,11 +3,9 @@ import styled from "styled-components"
 
 // Hooks
 import { useHistory } from "react-router-dom"
-import { useCollection } from "../../../hooks/useCollection"
 import { useHandleCards } from "../../../hooks/useHandleCards"
 import { useFlashMessage } from "../../../context/FlashMessageContext"
-import { useUser } from "../../../context/FirebaseContext"
-import { useCollectionData } from "react-firebase-hooks/firestore"
+import { useGetCards } from "../../../hooks/useGetCards"
 
 // Components
 import { Button } from "../../../components/Button"
@@ -15,15 +13,8 @@ import { CollectionCardItem } from "./CollectionCardItem"
 import { LoadSpinner } from "../../../components/LoadSpinner"
 
 export const CollectionCardListing: React.FC = () => {
-  const { user } = useUser()
   const history = useHistory()
-  const cardsCollection = useCollection("cards")
-  const query = cardsCollection
-    .orderBy("createdAt", "desc")
-    .limit(100)
-    .where("userId", "==", user?.uid)
-
-  const [cards, loading, error] = useCollectionData(query, { idField: "id" })
+  const { cards, loading, error } = useGetCards()
   const { changeCardQuantity, deleteCard } = useHandleCards()
   const { addFlashMessage } = useFlashMessage()
 
