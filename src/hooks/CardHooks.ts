@@ -160,9 +160,19 @@ export const useChangeCardQuantity = () => {
  */
 export const useDeleteCard = () => {
   const cardsCollection = useCollection("cards")
+  const { addFlashMessage } = useFlashMessage()
 
-  const deleteCard = async (id: string) => {
-    await cardsCollection.doc(id).delete()
+  const deleteCard = async (id: string, name: string) => {
+    try {
+      await cardsCollection.doc(id).delete()
+      addFlashMessage({
+        text: `'${name}' was removed from your collection.`,
+        theme: "cancel",
+      })
+    } catch (error) {
+      // TODO: Error handling through flash messages?
+      console.log(error)
+    }
   }
 
   return { deleteCard }

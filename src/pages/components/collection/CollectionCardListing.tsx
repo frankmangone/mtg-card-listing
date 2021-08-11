@@ -3,7 +3,6 @@ import styled from "styled-components"
 
 // Hooks
 import { useHistory } from "react-router-dom"
-import { useFlashMessage } from "../../../context/FlashMessageContext"
 import {
   useChangeCardQuantity,
   useDeleteCard,
@@ -20,15 +19,6 @@ export const CollectionCardListing: React.FC = () => {
   const { cards, loading, error } = useGetCards()
   const { changeCardQuantity } = useChangeCardQuantity()
   const { deleteCard } = useDeleteCard()
-  const { addFlashMessage } = useFlashMessage()
-
-  const deleteCardById = (id: string, name: string) => {
-    addFlashMessage({
-      text: `'${name}' was removed from your collection.`,
-      theme: "cancel",
-    })
-    deleteCard(id)
-  }
 
   return (
     <CollectionListWrapper>
@@ -83,7 +73,7 @@ export const CollectionCardListing: React.FC = () => {
           quantity={quantity}
           increaseCardQuantity={() => changeCardQuantity(id, quantity + 1)}
           decreaseCardQuantity={() => changeCardQuantity(id, quantity - 1)}
-          deleteCard={() => deleteCardById(id, name)}
+          deleteCard={() => deleteCard(id, name)}
         />
       ))}
     </CollectionListWrapper>
