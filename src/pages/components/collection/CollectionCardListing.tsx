@@ -2,6 +2,7 @@
 import styled from "styled-components"
 
 // Hooks
+import { useHistory } from "react-router-dom"
 import { useCollection } from "../../../hooks/useCollection"
 import { useHandleCards } from "../../../hooks/useHandleCards"
 import { useFlashMessage } from "../../../context/FlashMessageContext"
@@ -9,11 +10,13 @@ import { useUser } from "../../../context/FirebaseContext"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 
 // Components
+import { Button } from "../../../components/Button"
 import { CollectionCardItem } from "./CollectionCardItem"
 import { LoadSpinner } from "../../../components/LoadSpinner"
 
 export const CollectionCardListing: React.FC = () => {
   const { user } = useUser()
+  const history = useHistory()
   const cardsCollection = useCollection("cards")
   const query = cardsCollection
     .orderBy("createdAt", "desc")
@@ -52,6 +55,19 @@ export const CollectionCardListing: React.FC = () => {
           deleteCard={() => deleteCardById(id, name)}
         />
       ))}
+
+      {cards && cards.length === 0 && (
+        <NoDataContainer>
+          <p>You have no cards in your collection</p>
+          <Button
+            onClick={() => {
+              history.push("/search")
+            }}
+          >
+            Add cards
+          </Button>
+        </NoDataContainer>
+      )}
     </CollectionListWrapper>
   )
 }
@@ -70,4 +86,16 @@ const SpinnerContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
+`
+
+const NoDataContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+
+  p {
+    color: var(--color-grey);
+  }
 `
