@@ -6,7 +6,7 @@ import { MainLayout } from "../layouts/MainLayout"
 
 // Hooks
 import { useParams } from "react-router-dom"
-import { useGetCard } from "../hooks/useGetCard"
+import { useGetCard } from "../hooks/CardHooks"
 
 // Components
 import { LoadSpinner } from "../components/LoadSpinner"

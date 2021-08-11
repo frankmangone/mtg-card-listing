@@ -5,7 +5,7 @@ import styled from "styled-components"
 import { useHistory } from "react-router-dom"
 import { useHandleCards } from "../../../hooks/useHandleCards"
 import { useFlashMessage } from "../../../context/FlashMessageContext"
-import { useGetCards } from "../../../hooks/useGetCards"
+import { useGetCards } from "../../../hooks/CardHooks"
 
 // Components
 import { Button } from "../../../components/Button"
