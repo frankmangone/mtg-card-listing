@@ -16,5 +16,6 @@ export interface ISearchResult {
   prices: IPrices
   set: string
   set_name: string
+  type_line: string
   // TODO: Expand this as needed
 }

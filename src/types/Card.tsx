@@ -1,14 +1,17 @@
 export interface ICard {
-  name: string
+  colors?: string[]
   imageUrl: string
   legalities: ILegalities
-  setName: string
-  quantity: number
-  sellStatus: SellStatus
+  location: string
+  name: string
   ownership: Ownership
   ownershipSubject: string
   prices: IPrices
-  location: string
+  quantity: number
+  sellStatus: SellStatus
+  set?: string
+  setName: string
+  typeLine?: string
 }
 
 export interface ILegalities {

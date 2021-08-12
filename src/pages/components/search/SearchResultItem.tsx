@@ -29,19 +29,20 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
    * This effectively saves a card to the user's collection
    */
   const saveCardToCollection = () => {
-    console.log(searchResult)
     saveCard({
+      colors: searchResult.colors,
       imageUrl: imageUrl,
       legalities: searchResult.legalities,
+      location: "",
       name: searchResult.name,
-      prices: searchResult.prices,
-      quantity: 1,
-      setName: searchResult.set_name,
-      colors: searchResult.colors,
-      sellStatus: 1,
       ownership: 1,
       ownershipSubject: "",
-      location: "",
+      prices: searchResult.prices,
+      quantity: 1,
+      sellStatus: 1,
+      set: searchResult.set,
+      setName: searchResult.set_name,
+      typeLine: searchResult.type_line,
     })
   }
 
