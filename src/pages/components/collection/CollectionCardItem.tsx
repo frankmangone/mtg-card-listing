@@ -4,13 +4,15 @@ import styled from "styled-components"
 // Components
 import { Link } from "react-router-dom"
 import { Button } from "../../../components/Button"
+import { CardColors } from "./CardColors"
 import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa"
 
 interface ICollectionCardItemProps {
   key: string
   id: string
+  colors: string[]
   name: string
-  setName: string
+  set: string
   quantity: number
   increaseCardQuantity: () => void
   decreaseCardQuantity: () => void
@@ -22,8 +24,9 @@ export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
 ) => {
   const {
     id,
+    colors,
     name,
-    setName,
+    set,
     quantity,
     increaseCardQuantity,
     decreaseCardQuantity,
@@ -33,8 +36,9 @@ export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
   return (
     <CardWrapper>
       <CardInner>
-        <CardSet>{setName}</CardSet>
+        <CardSet>{set}</CardSet>
         <CardName to={`/cards/${id}`}>{name}</CardName>
+        <CardColors colors={colors} />
         <CardQuantityWrapper>
           <CardQuantity>{quantity}</CardQuantity>
           <Button
@@ -65,6 +69,7 @@ export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
 }
 
 const CardWrapper = styled.div`
+  position: relative;
   flex-basis: 100%;
   min-width: 0;
   @media (min-width: 550px) {

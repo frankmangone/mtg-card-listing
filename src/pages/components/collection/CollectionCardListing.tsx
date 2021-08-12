@@ -17,16 +17,9 @@ import { LoadSpinner } from "../../../components/LoadSpinner"
 
 export const CollectionCardListing: React.FC = () => {
   const history = useHistory()
-  const { sets } = useSetsData()
   const { cards, loading, error } = useGetCards()
   const { changeCardQuantity } = useChangeCardQuantity()
   const { deleteCard } = useDeleteCard()
-
-  const getSetCode = (name: string): string => {
-    const set = sets.find((s) => s.name === name)
-    if (set?.code === undefined) return ""
-    return set?.code.toUpperCase()
-  }
 
   return (
     <CollectionListWrapper>
@@ -73,12 +66,13 @@ export const CollectionCardListing: React.FC = () => {
           </Button>
         </ButtonWrapper>
       )}
-      {cards?.map(({ id, name, quantity, setName }) => (
+      {cards?.map(({ id, name, quantity, set, colors }) => (
         <CollectionCardItem
           key={id}
           id={id}
           name={name}
-          setName={getSetCode(setName)}
+          colors={colors}
+          set={set?.toUpperCase()}
           quantity={quantity}
           increaseCardQuantity={() => changeCardQuantity(id, quantity + 1)}
           decreaseCardQuantity={() => changeCardQuantity(id, quantity - 1)}

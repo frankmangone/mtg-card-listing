@@ -30,7 +30,10 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
    */
   const saveCardToCollection = () => {
     saveCard({
-      colors: searchResult.colors,
+      colors:
+        searchResult.colors ||
+        searchResult.color_identity ||
+        searchResult.color_indicator,
       imageUrl: imageUrl,
       legalities: searchResult.legalities,
       location: "",

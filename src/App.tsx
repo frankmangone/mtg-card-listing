@@ -65,6 +65,12 @@ const GlobalStyle = createGlobalStyle`
     --color-lightgrey: hsl(0, 0%, 85%);
     --color-grey:hsl(0, 0%, 50%);
     --color-darkgrey: hsl(0, 0%, 20%);
+
+    --color-mtg-green: rgb(75, 177, 71);
+    --color-mtg-blue: rgb(19, 156, 223);
+    --color-mtg-red: rgb(226, 64, 39);
+    --color-mtg-white: rgb(250, 232, 157);
+    --color-mtg-black: rgb(11, 11, 13);
   }
 `
 
