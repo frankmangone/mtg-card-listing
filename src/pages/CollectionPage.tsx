@@ -15,12 +15,20 @@ import { useUser } from "../context/FirebaseContext"
 export const CollectionPage: React.FC = () => {
   const { user } = useUser()
   const [search, setSearch] = useState("")
+  const [set, setSet] = useState<string | undefined>(undefined)
 
   return (
     <MainLayout>
       {user ? (
         <CollectionListingWrapper>
-          <SearchBar {...{ search, setSearch }} />
+          <SearchBar
+            {...{
+              search,
+              setSearch,
+              set,
+              setSet,
+            }}
+          />
           <CollectionCardListing />
         </CollectionListingWrapper>
       ) : null}
