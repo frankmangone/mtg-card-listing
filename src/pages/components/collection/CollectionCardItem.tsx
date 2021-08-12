@@ -31,9 +31,7 @@ export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
   return (
     <CardWrapper>
       <CardInner>
-        <CardName>
-          <Link to={`/cards/${id}`}>{name}</Link>
-        </CardName>
+        <CardName to={`/cards/${id}`}>{name}</CardName>
         <CardQuantityWrapper>
           <CardQuantity>{quantity}</CardQuantity>
           <Button
@@ -65,6 +63,7 @@ export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
 
 const CardWrapper = styled.div`
   flex-basis: 100%;
+  min-width: 0;
   @media (min-width: 550px) {
     flex-basis: 50%;
   }
@@ -87,17 +86,17 @@ const CardInner = styled.div`
   }
 `
 
-const CardName = styled.p`
+const CardName = styled(Link)`
   margin: auto;
   flex: 1;
-
-  a {
-    color: var(--color-darkgrey);
-    text-decoration: none;
-    transition: color 0.1s linear;
-    &:hover {
-      color: var(--color-grey);
-    }
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--color-darkgrey);
+  text-decoration: none;
+  transition: color 0.1s linear;
+  &:hover {
+    color: var(--color-grey);
   }
 `
 
