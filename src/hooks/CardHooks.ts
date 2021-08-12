@@ -31,7 +31,7 @@ export const useGetCard = (id: string) => {
         name: cardDoc.name,
         imageUrl: cardDoc.imageUrl,
         legalities: cardDoc.legalities,
-        set_name: cardDoc.set_name,
+        setName: cardDoc.setName,
         quantity: cardDoc.quantity,
         sellStatus: cardDoc.sellStatus,
         prices: cardDoc.prices,
@@ -83,7 +83,7 @@ interface ISaveData {
   ownership: Ownership
   ownershipSubject: string
   location: string
-  set_name: string
+  setName: string
 }
 
 export const useSaveCard = () => {

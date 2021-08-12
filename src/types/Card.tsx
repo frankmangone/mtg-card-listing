@@ -2,7 +2,7 @@ export interface ICard {
   name: string
   imageUrl: string
   legalities: ILegalities
-  set_name: string
+  setName: string
   quantity: number
   sellStatus: SellStatus
   ownership: Ownership
