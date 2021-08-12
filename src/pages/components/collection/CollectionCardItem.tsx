@@ -10,6 +10,7 @@ interface ICollectionCardItemProps {
   key: string
   id: string
   name: string
+  setName: string
   quantity: number
   increaseCardQuantity: () => void
   decreaseCardQuantity: () => void
@@ -22,6 +23,7 @@ export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
   const {
     id,
     name,
+    setName,
     quantity,
     increaseCardQuantity,
     decreaseCardQuantity,
@@ -31,6 +33,7 @@ export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
   return (
     <CardWrapper>
       <CardInner>
+        <CardSet>{setName}</CardSet>
         <CardName to={`/cards/${id}`}>{name}</CardName>
         <CardQuantityWrapper>
           <CardQuantity>{quantity}</CardQuantity>
@@ -78,12 +81,26 @@ const CardInner = styled.div`
   display: flex;
   align-items: stretch;
   margin: 5px;
-  padding: 5px 5px 5px 15px;
+  padding: 5px;
   transition: all 0.1s linear;
 
   &:hover {
     box-shadow: 0 0 3px 1px var(--color-grey);
   }
+`
+
+const CardSet = styled.p`
+  margin: 0;
+  margin-right: 10px;
+  background-color: var(--color-grey);
+  color: var(--color-white);
+  display: flex;
+  flex-basis: 2rem;
+  font-size: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 4px;
 `
 
 const CardName = styled(Link)`

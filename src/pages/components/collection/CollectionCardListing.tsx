@@ -2,6 +2,7 @@
 import styled from "styled-components"
 
 // Hooks
+import { useSetsData } from "../../../context/SetsContext"
 import { useHistory } from "react-router-dom"
 import {
   useChangeCardQuantity,
@@ -16,9 +17,16 @@ import { LoadSpinner } from "../../../components/LoadSpinner"
 
 export const CollectionCardListing: React.FC = () => {
   const history = useHistory()
+  const { sets } = useSetsData()
   const { cards, loading, error } = useGetCards()
   const { changeCardQuantity } = useChangeCardQuantity()
   const { deleteCard } = useDeleteCard()
+
+  const getSetCode = (name: string): string => {
+    const set = sets.find((s) => s.name === name)
+    if (set?.code === undefined) return ""
+    return set?.code.toUpperCase()
+  }
 
   return (
     <CollectionListWrapper>
@@ -65,11 +73,12 @@ export const CollectionCardListing: React.FC = () => {
           </Button>
         </ButtonWrapper>
       )}
-      {cards?.map(({ id, name, quantity }) => (
+      {cards?.map(({ id, name, quantity, setName }) => (
         <CollectionCardItem
           key={id}
           id={id}
           name={name}
+          setName={getSetCode(setName)}
           quantity={quantity}
           increaseCardQuantity={() => changeCardQuantity(id, quantity + 1)}
           decreaseCardQuantity={() => changeCardQuantity(id, quantity - 1)}
