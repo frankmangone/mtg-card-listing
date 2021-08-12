@@ -74,15 +74,16 @@ export const useGetCards = (options?: IOptions) => {
  * @returns { saveCard }
  */
 interface ISaveData {
-  name: string
+  colors: string[]
   imageUrl: string
   legalities: ILegalities
+  location: string
+  name: string
+  ownership: Ownership
+  ownershipSubject: string
   prices: IPrices
   quantity: number
   sellStatus: SellStatus
-  ownership: Ownership
-  ownershipSubject: string
-  location: string
   setName: string
 }
 

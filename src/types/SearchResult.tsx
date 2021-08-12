@@ -9,6 +9,7 @@ interface IImageResolutions {
 export interface ISearchResult {
   id: string
   card_faces?: { image_uris: IImageResolutions }[]
+  colors: string[]
   image_uris?: IImageResolutions
   legalities: ILegalities
   name: string
