@@ -4,7 +4,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa"
 import { CardInfoField, Title, Value, Spacer } from "./CardInfoField"
 
 // Hooks
-import { useHandleCards } from "../../../hooks/useHandleCards"
+import { useChangeCardQuantity } from "../../../hooks/CardHooks"
 
 interface ICardQuantityProps {
   id: string
@@ -13,7 +13,7 @@ interface ICardQuantityProps {
 
 export const CardQuantity: React.FC<ICardQuantityProps> = (props) => {
   const { quantity, id } = props
-  const { changeCardQuantity } = useHandleCards()
+  const { changeCardQuantity } = useChangeCardQuantity()
 
   return (
     <CardInfoField>

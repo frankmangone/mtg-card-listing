@@ -1,7 +1,7 @@
 import { CardInfoField, Input, Title, Spacer } from "./CardInfoField"
 
 // Hooks
-import { useHandleCards } from "../../../hooks/useHandleCards"
+import { useUpdateCardField } from "../../../hooks/CardHooks"
 import React from "react"
 
 interface ICardLocationProps {
@@ -12,7 +12,7 @@ interface ICardLocationProps {
 
 export const CardLocation: React.FC<ICardLocationProps> = (props) => {
   const { location, id } = props
-  const { updateCardField } = useHandleCards()
+  const { updateCardField } = useUpdateCardField()
 
   const changeLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateCardField(id, "location", event.target.value)

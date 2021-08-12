@@ -3,7 +3,7 @@ import { Select } from "../../../components/Select"
 import { CardInfoField, Title, Spacer } from "./CardInfoField"
 
 // Hooks
-import { useHandleCards } from "../../../hooks/useHandleCards"
+import { useUpdateCardField } from "../../../hooks/CardHooks"
 
 // Types
 import { SELL_STATUS, SELL_STATUS_TEXT } from "../../../types/Card"
@@ -22,7 +22,7 @@ const sellStatuses = Object.entries(SELL_STATUS).map(([status, value]) => ({
 
 export const CardSellStatus: React.FC<ICardSellStatusProps> = (props) => {
   const { sellStatus, id } = props
-  const { updateCardField } = useHandleCards()
+  const { updateCardField } = useUpdateCardField()
 
   const initialValue = {
     value: sellStatus,

@@ -34,8 +34,12 @@ export const useScryfallQuery = (props: IUseScryfallQueryProps) => {
 
     timeoutRef.current = setTimeout(() => {
       timeoutRef.current = null
-      if (search !== "") querySearchString()
-      else setLoading(false)
+      if (search !== "") {
+        querySearchString()
+        return
+      }
+      setLoading(false)
+      setSearchResults([])
     }, 500)
-  }, [search, querySearchString, setLoading])
+  }, [search, querySearchString, setLoading, setSearchResults])
 }

@@ -3,11 +3,11 @@ import styled from "styled-components"
 
 // Hooks
 import { useHistory } from "react-router-dom"
-import { useCollection } from "../../../hooks/useCollection"
-import { useHandleCards } from "../../../hooks/useHandleCards"
-import { useFlashMessage } from "../../../context/FlashMessageContext"
-import { useUser } from "../../../context/FirebaseContext"
-import { useCollectionData } from "react-firebase-hooks/firestore"
+import {
+  useChangeCardQuantity,
+  useDeleteCard,
+  useGetCards,
+} from "../../../hooks/CardHooks"
 
 // Components
 import { Button } from "../../../components/Button"
@@ -15,25 +15,10 @@ import { CollectionCardItem } from "./CollectionCardItem"
 import { LoadSpinner } from "../../../components/LoadSpinner"
 
 export const CollectionCardListing: React.FC = () => {
-  const { user } = useUser()
   const history = useHistory()
-  const cardsCollection = useCollection("cards")
-  const query = cardsCollection
-    .orderBy("createdAt", "desc")
-    .limit(100)
-    .where("userId", "==", user?.uid)
-
-  const [cards, loading, error] = useCollectionData(query, { idField: "id" })
-  const { changeCardQuantity, deleteCard } = useHandleCards()
-  const { addFlashMessage } = useFlashMessage()
-
-  const deleteCardById = (id: string, name: string) => {
-    addFlashMessage({
-      text: `'${name}' was removed from your collection.`,
-      theme: "cancel",
-    })
-    deleteCard(id)
-  }
+  const { cards, loading, error } = useGetCards()
+  const { changeCardQuantity } = useChangeCardQuantity()
+  const { deleteCard } = useDeleteCard()
 
   return (
     <CollectionListWrapper>
@@ -88,7 +73,7 @@ export const CollectionCardListing: React.FC = () => {
           quantity={quantity}
           increaseCardQuantity={() => changeCardQuantity(id, quantity + 1)}
           decreaseCardQuantity={() => changeCardQuantity(id, quantity - 1)}
-          deleteCard={() => deleteCardById(id, name)}
+          deleteCard={() => deleteCard(id, name)}
         />
       ))}
     </CollectionListWrapper>

@@ -5,7 +5,7 @@ import { Select } from "../../../components/Select"
 import { CardInfoField, Input, Title, Spacer } from "./CardInfoField"
 
 // Hooks
-import { useHandleCards } from "../../../hooks/useHandleCards"
+import { useUpdateCardField } from "../../../hooks/CardHooks"
 
 // Types
 import { OWNERSHIP, OWNERSHIP_TEXT } from "../../../types/Card"
@@ -25,7 +25,7 @@ const ownerships = Object.entries(OWNERSHIP).map(([ownership, value]) => ({
 
 export const CardOwnership: React.FC<ICardOwnershipProps> = (props) => {
   const { ownership, ownershipSubject, id } = props
-  const { updateCardField } = useHandleCards()
+  const { updateCardField } = useUpdateCardField()
 
   const initialValue = {
     value: ownership,
