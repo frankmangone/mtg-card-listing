@@ -13,6 +13,7 @@ import "firebase/auth"
 
 // Context
 import { FirebaseContext } from "./context/FirebaseContext"
+import { SetsContext, useSetsData } from "./context/SetsContext"
 import {
   FlashMessageContext,
   TFlashMessageWithKey,
@@ -70,18 +71,21 @@ const GlobalStyle = createGlobalStyle`
 /* App */
 const App: React.FC = () => {
   const [flashMessages, setFlashMessages] = useState<TFlashMessageWithKey[]>([])
+  const { sets, loadingSets } = useSetsData()
 
   return (
     <FirebaseContext.Provider value={{ auth, firestore }}>
       <FlashMessageContext.Provider value={{ flashMessages, setFlashMessages }}>
-        <GlobalStyle />
-        <Router>
-          <Switch>
-            <Route path="/" exact component={CollectionPage} />
-            <Route path="/search" exact component={SearchPage} />
-            <Route path="/cards/:id" exact component={CardPage} />
-          </Switch>
-        </Router>
+        <SetsContext.Provider value={{ sets, loadingSets }}>
+          <GlobalStyle />
+          <Router>
+            <Switch>
+              <Route path="/" exact component={CollectionPage} />
+              <Route path="/search" exact component={SearchPage} />
+              <Route path="/cards/:id" exact component={CardPage} />
+            </Switch>
+          </Router>
+        </SetsContext.Provider>
       </FlashMessageContext.Provider>
     </FirebaseContext.Provider>
   )
