@@ -28,16 +28,16 @@ export const useGetCard = (id: string) => {
 
   const card: ICard | undefined = cardDoc
     ? {
-        name: cardDoc.name,
         imageUrl: cardDoc.imageUrl,
         legalities: cardDoc.legalities,
-        set_name: cardDoc.set_name,
-        quantity: cardDoc.quantity,
-        sellStatus: cardDoc.sellStatus,
-        prices: cardDoc.prices,
         location: cardDoc.location,
+        name: cardDoc.name,
+        prices: cardDoc.prices,
         ownership: cardDoc.ownership,
         ownershipSubject: cardDoc.ownershipSubject,
+        quantity: cardDoc.quantity,
+        sellStatus: cardDoc.sellStatus,
+        setName: cardDoc.setName,
       }
     : undefined
 
@@ -51,6 +51,7 @@ export const useGetCard = (id: string) => {
  */
 
 interface IOptions {
+  searchString?: string
   limit?: number
 }
 
@@ -74,16 +75,19 @@ export const useGetCards = (options?: IOptions) => {
  * @returns { saveCard }
  */
 interface ISaveData {
-  name: string
+  colors: string[]
   imageUrl: string
   legalities: ILegalities
+  location: string
+  name: string
+  ownership: Ownership
+  ownershipSubject: string
   prices: IPrices
   quantity: number
   sellStatus: SellStatus
-  ownership: Ownership
-  ownershipSubject: string
-  location: string
-  set_name: string
+  set: string // Short name for display purposes
+  setName: string
+  typeLine: string
 }
 
 export const useSaveCard = () => {

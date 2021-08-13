@@ -4,12 +4,15 @@ import styled from "styled-components"
 // Components
 import { Link } from "react-router-dom"
 import { Button } from "../../../components/Button"
+import { CardColors } from "./CardColors"
 import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa"
 
 interface ICollectionCardItemProps {
   key: string
   id: string
+  colors: string[]
   name: string
+  set: string
   quantity: number
   increaseCardQuantity: () => void
   decreaseCardQuantity: () => void
@@ -21,7 +24,9 @@ export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
 ) => {
   const {
     id,
+    colors,
     name,
+    set,
     quantity,
     increaseCardQuantity,
     decreaseCardQuantity,
@@ -31,9 +36,9 @@ export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
   return (
     <CardWrapper>
       <CardInner>
-        <CardName>
-          <Link to={`/cards/${id}`}>{name}</Link>
-        </CardName>
+        <CardSet>{set}</CardSet>
+        <CardName to={`/cards/${id}`}>{name}</CardName>
+        <CardColors colors={colors} />
         <CardQuantityWrapper>
           <CardQuantity>{quantity}</CardQuantity>
           <Button
@@ -64,7 +69,9 @@ export const CollectionCardItem: React.FC<ICollectionCardItemProps> = (
 }
 
 const CardWrapper = styled.div`
+  position: relative;
   flex-basis: 100%;
+  min-width: 0;
   @media (min-width: 550px) {
     flex-basis: 50%;
   }
@@ -79,7 +86,7 @@ const CardInner = styled.div`
   display: flex;
   align-items: stretch;
   margin: 5px;
-  padding: 5px 5px 5px 15px;
+  padding: 5px;
   transition: all 0.1s linear;
 
   &:hover {
@@ -87,17 +94,31 @@ const CardInner = styled.div`
   }
 `
 
-const CardName = styled.p`
+const CardSet = styled.p`
+  margin: 0;
+  margin-right: 10px;
+  background-color: var(--color-grey);
+  color: var(--color-white);
+  display: flex;
+  flex-basis: 2rem;
+  font-size: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 4px;
+`
+
+const CardName = styled(Link)`
   margin: auto;
   flex: 1;
-
-  a {
-    color: var(--color-darkgrey);
-    text-decoration: none;
-    transition: color 0.1s linear;
-    &:hover {
-      color: var(--color-grey);
-    }
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--color-darkgrey);
+  text-decoration: none;
+  transition: color 0.1s linear;
+  &:hover {
+    color: var(--color-grey);
   }
 `
 

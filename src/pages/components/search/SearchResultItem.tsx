@@ -25,6 +25,30 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
     searchResult.card_faces?.[0].image_uris?.normal ||
     ""
 
+  /**
+   * This effectively saves a card to the user's collection
+   */
+  const saveCardToCollection = () => {
+    saveCard({
+      colors:
+        searchResult.colors ||
+        searchResult.color_identity ||
+        searchResult.color_indicator,
+      imageUrl: imageUrl,
+      legalities: searchResult.legalities,
+      location: "",
+      name: searchResult.name,
+      ownership: 1,
+      ownershipSubject: "",
+      prices: searchResult.prices,
+      quantity: 1,
+      sellStatus: 1,
+      set: searchResult.set,
+      setName: searchResult.set_name,
+      typeLine: searchResult.type_line,
+    })
+  }
+
   return (
     <ResultItem
       key={searchResult.id}
@@ -39,20 +63,7 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
       <Button
         children={<FaPlus />}
         styling="transparent"
-        onClick={() =>
-          saveCard({
-            imageUrl: imageUrl,
-            legalities: searchResult.legalities,
-            name: searchResult.name,
-            prices: searchResult.prices,
-            quantity: 1,
-            set_name: searchResult.set_name,
-            sellStatus: 1,
-            ownership: 1,
-            ownershipSubject: "",
-            location: "",
-          })
-        }
+        onClick={saveCardToCollection}
       />
     </ResultItem>
   )

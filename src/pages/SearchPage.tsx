@@ -9,9 +9,6 @@ import { CardImageDisplayer } from "../components/CardImageDisplayer"
 import { SearchBar } from "../components/SearchBar"
 import { SearchResultsList } from "./components/search/SearchResultsList"
 
-// Context
-import { SetsContext, useSetsData } from "../context/SetsContext"
-
 // Hooks
 import { useState } from "react"
 import { useScryfallQuery } from "../hooks/useScryfallQuery"
@@ -23,8 +20,6 @@ export const SearchPage: React.FC = () => {
   const [set, setSet] = useState<string | undefined>(undefined)
   const [imagePreviewUrl, setImagePreviewUrl] = useState("")
 
-  const { sets, loadingSets } = useSetsData()
-
   useScryfallQuery({
     set,
     search,
@@ -33,32 +28,30 @@ export const SearchPage: React.FC = () => {
   })
 
   return (
-    <SetsContext.Provider value={{ sets, loadingSets }}>
-      <MainLayout>
-        <SearchPageWrapper>
-          <SearchBar
+    <MainLayout>
+      <SearchPageWrapper>
+        <SearchBar
+          {...{
+            search,
+            setSearch,
+            set,
+            setSet,
+            setLoading,
+          }}
+        />
+        <SearchResultsWrapper>
+          <CardImageDisplayer imageUrl={imagePreviewUrl} />
+          <SearchResultsList
             {...{
+              loading,
               search,
-              setSearch,
-              set,
-              setSet,
-              setLoading,
+              searchResults,
+              setImagePreviewUrl,
             }}
           />
-          <SearchResultsWrapper>
-            <CardImageDisplayer imageUrl={imagePreviewUrl} />
-            <SearchResultsList
-              {...{
-                loading,
-                search,
-                searchResults,
-                setImagePreviewUrl,
-              }}
-            />
-          </SearchResultsWrapper>
-        </SearchPageWrapper>
-      </MainLayout>
-    </SetsContext.Provider>
+        </SearchResultsWrapper>
+      </SearchPageWrapper>
+    </MainLayout>
   )
 }
 
@@ -66,6 +59,7 @@ const SearchPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 0.8rem;
   padding-left: 1rem;
   padding-right: 1rem;
 `

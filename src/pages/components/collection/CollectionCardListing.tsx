@@ -14,9 +14,16 @@ import { Button } from "../../../components/Button"
 import { CollectionCardItem } from "./CollectionCardItem"
 import { LoadSpinner } from "../../../components/LoadSpinner"
 
-export const CollectionCardListing: React.FC = () => {
+interface ICollectionCardListingProps {
+  search: string
+}
+
+export const CollectionCardListing: React.FC<ICollectionCardListingProps> = (
+  props
+) => {
+  const { search } = props
   const history = useHistory()
-  const { cards, loading, error } = useGetCards()
+  const { cards, loading, error } = useGetCards({ searchString: search })
   const { changeCardQuantity } = useChangeCardQuantity()
   const { deleteCard } = useDeleteCard()
 
@@ -65,11 +72,13 @@ export const CollectionCardListing: React.FC = () => {
           </Button>
         </ButtonWrapper>
       )}
-      {cards?.map(({ id, name, quantity }) => (
+      {cards?.map(({ id, name, quantity, set, colors }) => (
         <CollectionCardItem
           key={id}
           id={id}
           name={name}
+          colors={colors}
+          set={set?.toUpperCase()}
           quantity={quantity}
           increaseCardQuantity={() => changeCardQuantity(id, quantity + 1)}
           decreaseCardQuantity={() => changeCardQuantity(id, quantity - 1)}

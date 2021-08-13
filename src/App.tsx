@@ -13,6 +13,7 @@ import "firebase/auth"
 
 // Context
 import { FirebaseContext } from "./context/FirebaseContext"
+import { SetsContext, useSetsData } from "./context/SetsContext"
 import {
   FlashMessageContext,
   TFlashMessageWithKey,
@@ -64,24 +65,33 @@ const GlobalStyle = createGlobalStyle`
     --color-lightgrey: hsl(0, 0%, 85%);
     --color-grey:hsl(0, 0%, 50%);
     --color-darkgrey: hsl(0, 0%, 20%);
+
+    --color-mtg-green: rgb(75, 177, 71);
+    --color-mtg-blue: rgb(19, 156, 223);
+    --color-mtg-red: rgb(226, 64, 39);
+    --color-mtg-white: rgb(250, 232, 157);
+    --color-mtg-black: rgb(11, 11, 13);
   }
 `
 
 /* App */
 const App: React.FC = () => {
   const [flashMessages, setFlashMessages] = useState<TFlashMessageWithKey[]>([])
+  const { sets, loadingSets } = useSetsData()
 
   return (
     <FirebaseContext.Provider value={{ auth, firestore }}>
       <FlashMessageContext.Provider value={{ flashMessages, setFlashMessages }}>
-        <GlobalStyle />
-        <Router>
-          <Switch>
-            <Route path="/" exact component={CollectionPage} />
-            <Route path="/search" exact component={SearchPage} />
-            <Route path="/cards/:id" exact component={CardPage} />
-          </Switch>
-        </Router>
+        <SetsContext.Provider value={{ sets, loadingSets }}>
+          <GlobalStyle />
+          <Router>
+            <Switch>
+              <Route path="/" exact component={CollectionPage} />
+              <Route path="/search" exact component={SearchPage} />
+              <Route path="/cards/:id" exact component={CardPage} />
+            </Switch>
+          </Router>
+        </SetsContext.Provider>
       </FlashMessageContext.Provider>
     </FirebaseContext.Provider>
   )
