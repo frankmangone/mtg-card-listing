@@ -10,13 +10,19 @@ import { UnderConstruction } from "../components/UnderConstruction"
 import { SearchBar } from "../components/SearchBar"
 
 // Hooks
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useUser } from "../context/FirebaseContext"
+import { useAuthRequiredRoute } from "../hooks/useAuthRequiredRoute"
 
 export const CollectionPage: React.FC = () => {
   const { user } = useUser()
   const [search, setSearch] = useState("")
   const [set, setSet] = useState<string | undefined>(undefined)
+
+  const authRequiredRoute = useAuthRequiredRoute()
+  useEffect(() => {
+    authRequiredRoute()
+  }, [authRequiredRoute])
 
   return (
     <MainLayout>

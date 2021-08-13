@@ -5,13 +5,14 @@ import styled from "styled-components"
 import { MainLayout } from "../layouts/MainLayout"
 
 // Hooks
+import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useGetCard } from "../hooks/CardHooks"
+import { usePrivateRoute } from "../hooks/usePrivateRoute"
 
 // Components
 import { LoadSpinner } from "../components/LoadSpinner"
 import { CardDisplay } from "./components/card/CardDisplay"
-import { PrivateRoute } from "../components/PrivateRoute"
 
 interface IRouteParams {
   id: string
@@ -21,9 +22,13 @@ export const CardPage: React.FC = () => {
   const { id } = useParams<IRouteParams>()
   const { card, loading, error } = useGetCard(id)
 
+  const privateRoute = usePrivateRoute()
+  useEffect(() => {
+    if (card?.userId) privateRoute(card.userId)
+  }, [card?.userId, privateRoute])
+
   return (
     <>
-      {card && <PrivateRoute userId={card.userId} />}
       <MainLayout>
         <CardPageWrapper>
           {/* Spinner while loading */}

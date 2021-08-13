@@ -1,6 +1,3 @@
-import styled from "styled-components"
-import { Redirect } from "react-router-dom"
-
 import { MainLayout } from "../layouts/MainLayout"
 
 import { useUser } from "../context/FirebaseContext"

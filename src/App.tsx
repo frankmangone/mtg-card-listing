@@ -3,7 +3,6 @@ import { useState } from "react"
 import { createGlobalStyle } from "styled-components"
 import firebase from "firebase/app"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import { AuthRequiredRoute } from "./components/AuthRequiredRoute"
 import "firebase/firestore"
 import "firebase/auth"
 
@@ -90,12 +89,8 @@ const App: React.FC = () => {
             <Switch>
               <Route path="/" exact component={HomePage} />
               <Route path="/search" exact component={SearchPage} />
-              <AuthRequiredRoute
-                path="/collection"
-                exact
-                component={CollectionPage}
-              />
-              <AuthRequiredRoute path="/cards/:id" exact component={CardPage} />
+              <Route path="/collection" exact component={CollectionPage} />
+              <Route path="/cards/:id" exact component={CardPage} />
             </Switch>
           </Router>
         </SetsContext.Provider>
