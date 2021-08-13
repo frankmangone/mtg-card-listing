@@ -38,6 +38,7 @@ export const useGetCard = (id: string) => {
         quantity: cardDoc.quantity,
         sellStatus: cardDoc.sellStatus,
         setName: cardDoc.setName,
+        userId: cardDoc.uid,
       }
     : undefined
 

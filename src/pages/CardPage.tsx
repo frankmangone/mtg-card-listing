@@ -11,6 +11,7 @@ import { useGetCard } from "../hooks/CardHooks"
 // Components
 import { LoadSpinner } from "../components/LoadSpinner"
 import { CardDisplay } from "./components/card/CardDisplay"
+import { PrivateRoute } from "../components/PrivateRoute"
 
 interface IRouteParams {
   id: string
@@ -21,22 +22,25 @@ export const CardPage: React.FC = () => {
   const { card, loading, error } = useGetCard(id)
 
   return (
-    <MainLayout>
-      <CardPageWrapper>
-        {/* Spinner while loading */}
-        {loading && (
-          <SpinnerContainer>
-            <LoadSpinner />
-          </SpinnerContainer>
-        )}
+    <>
+      {card && <PrivateRoute userId={card.userId} />}
+      <MainLayout>
+        <CardPageWrapper>
+          {/* Spinner while loading */}
+          {loading && (
+            <SpinnerContainer>
+              <LoadSpinner />
+            </SpinnerContainer>
+          )}
 
-        {/* Show card when succesfully retrieved */}
-        {card && <CardDisplay card={card} id={id} />}
+          {/* Show card when succesfully retrieved */}
+          {card && <CardDisplay card={card} id={id} />}
 
-        {/* Show error message when load fails */}
-        {error && <p>Error: {error.message}</p>}
-      </CardPageWrapper>
-    </MainLayout>
+          {/* Show error message when load fails */}
+          {error && <p>Error: {error.message}</p>}
+        </CardPageWrapper>
+      </MainLayout>
+    </>
   )
 }
 
