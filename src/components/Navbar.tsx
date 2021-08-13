@@ -82,7 +82,7 @@ const SignedInNavbar: React.FC<ISignedInNavbarProps> = (props) => {
       <LeftContent>
         <p>{user.displayName}</p>
         <Link to="/search">Find cards</Link>
-        <Link to="/">My collection</Link>
+        <Link to="/collection">My collection</Link>
       </LeftContent>
       <NavbarLink onClick={signOut}>Sign out</NavbarLink>
     </>
