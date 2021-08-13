@@ -59,6 +59,7 @@ const SearchPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 0.8rem;
   padding-left: 1rem;
   padding-right: 1rem;
 `

@@ -68,7 +68,6 @@ const SearchInputWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 0.8rem;
   padding-left: 10px;
   padding-right: 10px;
   width: auto;

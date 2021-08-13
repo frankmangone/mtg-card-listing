@@ -2,7 +2,6 @@
 import styled from "styled-components"
 
 // Hooks
-import { useSetsData } from "../../../context/SetsContext"
 import { useHistory } from "react-router-dom"
 import {
   useChangeCardQuantity,
@@ -15,9 +14,16 @@ import { Button } from "../../../components/Button"
 import { CollectionCardItem } from "./CollectionCardItem"
 import { LoadSpinner } from "../../../components/LoadSpinner"
 
-export const CollectionCardListing: React.FC = () => {
+interface ICollectionCardListingProps {
+  search: string
+}
+
+export const CollectionCardListing: React.FC<ICollectionCardListingProps> = (
+  props
+) => {
+  const { search } = props
   const history = useHistory()
-  const { cards, loading, error } = useGetCards()
+  const { cards, loading, error } = useGetCards({ searchString: search })
   const { changeCardQuantity } = useChangeCardQuantity()
   const { deleteCard } = useDeleteCard()
 

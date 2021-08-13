@@ -51,6 +51,7 @@ export const useGetCard = (id: string) => {
  */
 
 interface IOptions {
+  searchString?: string
   limit?: number
 }
 
