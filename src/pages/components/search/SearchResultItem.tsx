@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 // Hooks
 import { useSaveCard } from "../../../hooks/CardHooks"
+import { useUser } from "../../../context/FirebaseContext"
 
 // Components
 import { Button } from "../../../components/Button"
@@ -19,6 +20,7 @@ interface ISearchResultsItemProps {
 export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
   const { searchResult, setImagePreviewUrl } = props
   const { saveCard } = useSaveCard()
+  const { user, signInWithGoogle } = useUser()
 
   const imageUrl =
     searchResult.image_uris?.normal ||
@@ -49,6 +51,14 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
     })
   }
 
+  const handleAddButtonClick = () => {
+    if (user) {
+      saveCardToCollection()
+      return
+    }
+    signInWithGoogle(saveCardToCollection)
+  }
+
   return (
     <ResultItem
       key={searchResult.id}
@@ -63,7 +73,7 @@ export const SearchResultItem: React.FC<ISearchResultsItemProps> = (props) => {
       <Button
         children={<FaPlus />}
         styling="transparent"
-        onClick={saveCardToCollection}
+        onClick={handleAddButtonClick}
       />
     </ResultItem>
   )

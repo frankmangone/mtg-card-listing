@@ -22,6 +22,7 @@ import {
 // Pages
 import { CardPage } from "./pages/CardPage"
 import { CollectionPage } from "./pages/CollectionPage"
+import { HomePage } from "./pages/HomePage"
 import { SearchPage } from "./pages/SearchPage"
 
 /*
@@ -86,8 +87,9 @@ const App: React.FC = () => {
           <GlobalStyle />
           <Router>
             <Switch>
-              <Route path="/" exact component={CollectionPage} />
+              <Route path="/" exact component={HomePage} />
               <Route path="/search" exact component={SearchPage} />
+              <Route path="/collection" exact component={CollectionPage} />
               <Route path="/cards/:id" exact component={CardPage} />
             </Switch>
           </Router>

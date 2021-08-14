@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react"
+import firebase from "firebase/app"
 
 // Hooks
 import { useAuthState } from "react-firebase-hooks/auth"
@@ -19,8 +20,23 @@ export const useFirebase = () => {
   return useContext(FirebaseContext)
 }
 
+type VoidFunction = () => void
+
 export const useUser = () => {
   const { auth } = useFirebase()
   const [user] = useAuthState(auth)
-  return { user }
+
+  const signInWithGoogle = (callback?: VoidFunction) => {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    provider.setCustomParameters({ prompt: "select_account" })
+    if (callback) {
+      auth.signInWithPopup(provider).then((result: any) => {
+        callback()
+      })
+      return
+    }
+    auth.signInWithPopup(provider)
+  }
+
+  return { user, signInWithGoogle }
 }

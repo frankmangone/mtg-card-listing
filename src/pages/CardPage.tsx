@@ -5,8 +5,10 @@ import styled from "styled-components"
 import { MainLayout } from "../layouts/MainLayout"
 
 // Hooks
+import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useGetCard } from "../hooks/CardHooks"
+import { usePrivateRoute } from "../hooks/usePrivateRoute"
 
 // Components
 import { LoadSpinner } from "../components/LoadSpinner"
@@ -20,23 +22,30 @@ export const CardPage: React.FC = () => {
   const { id } = useParams<IRouteParams>()
   const { card, loading, error } = useGetCard(id)
 
+  const privateRoute = usePrivateRoute()
+  useEffect(() => {
+    if (card?.userId) privateRoute(card.userId)
+  }, [card?.userId, privateRoute])
+
   return (
-    <MainLayout>
-      <CardPageWrapper>
-        {/* Spinner while loading */}
-        {loading && (
-          <SpinnerContainer>
-            <LoadSpinner />
-          </SpinnerContainer>
-        )}
+    <>
+      <MainLayout>
+        <CardPageWrapper>
+          {/* Spinner while loading */}
+          {loading && (
+            <SpinnerContainer>
+              <LoadSpinner />
+            </SpinnerContainer>
+          )}
 
-        {/* Show card when succesfully retrieved */}
-        {card && <CardDisplay card={card} id={id} />}
+          {/* Show card when succesfully retrieved */}
+          {card && <CardDisplay card={card} id={id} />}
 
-        {/* Show error message when load fails */}
-        {error && <p>Error: {error.message}</p>}
-      </CardPageWrapper>
-    </MainLayout>
+          {/* Show error message when load fails */}
+          {error && <p>Error: {error.message}</p>}
+        </CardPageWrapper>
+      </MainLayout>
+    </>
   )
 }
 

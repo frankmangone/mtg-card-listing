@@ -12,6 +12,7 @@ export interface ICard {
   set?: string
   setName: string
   typeLine?: string
+  userId: string
 }
 
 export interface ILegalities {

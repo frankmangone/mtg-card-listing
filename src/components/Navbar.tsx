@@ -5,7 +5,8 @@ import { Link } from "react-router-dom"
 
 // Hooks
 import { useAuthState } from "react-firebase-hooks/auth"
-import { useFirebase } from "../context/FirebaseContext"
+import { useFirebase, useUser } from "../context/FirebaseContext"
+import { useHistory } from "react-router-dom"
 
 export const Navbar: React.FC = () => {
   const { auth } = useFirebase()
@@ -72,17 +73,23 @@ interface ISignedInNavbarProps {
 
 const SignedInNavbar: React.FC<ISignedInNavbarProps> = (props) => {
   const { auth, user } = props
+  const history = useHistory()
 
   const signOut = () => {
-    if (auth.currentUser) auth.signOut() // TODO: Firebase object typings?
+    if (auth.currentUser) auth.signOut()
+    history.push({
+      pathname: "/",
+    })
   }
 
   return (
     <>
       <LeftContent>
-        <p>{user.displayName}</p>
+        <p>
+          <Link to="/">{user.displayName}</Link>
+        </p>
         <Link to="/search">Find cards</Link>
-        <Link to="/">My collection</Link>
+        <Link to="/collection">My collection</Link>
       </LeftContent>
       <NavbarLink onClick={signOut}>Sign out</NavbarLink>
     </>
@@ -94,14 +101,21 @@ interface ISignedOutNavbarProps {
 }
 
 const SignedOutNavbar: React.FC<ISignedOutNavbarProps> = (props) => {
-  const { auth } = props
+  const { signInWithGoogle } = useUser()
 
-  const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    auth.signInWithPopup(provider)
+  const handleSignInClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    signInWithGoogle()
   }
 
-  return <NavbarLink onClick={signInWithGoogle}>Sign In</NavbarLink>
+  return (
+    <>
+      <LeftContent>
+        <p>Guest</p>
+        <Link to="/search">Find cards</Link>
+      </LeftContent>
+      <NavbarLink onClick={handleSignInClick}>Sign in</NavbarLink>
+    </>
+  )
 }
 
 const NavbarLink = styled.button`
@@ -115,5 +129,9 @@ const LeftContent = styled.div`
   align-items: stretch;
   p {
     border-right: 1px solid var(--color-primary-dark);
+  }
+
+  p > a {
+    padding-left: 0;
   }
 `
