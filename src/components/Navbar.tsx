@@ -85,7 +85,9 @@ const SignedInNavbar: React.FC<ISignedInNavbarProps> = (props) => {
   return (
     <>
       <LeftContent>
-        <p>{user.displayName}</p>
+        <p>
+          <Link to="/">{user.displayName}</Link>
+        </p>
         <Link to="/search">Find cards</Link>
         <Link to="/collection">My collection</Link>
       </LeftContent>
@@ -129,5 +131,9 @@ const LeftContent = styled.div`
   align-items: stretch;
   p {
     border-right: 1px solid var(--color-primary-dark);
+  }
+
+  p > a {
+    padding-left: 0;
   }
 `
