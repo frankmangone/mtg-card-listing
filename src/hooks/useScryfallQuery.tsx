@@ -25,7 +25,8 @@ export const useScryfallQuery = (props: IUseScryfallQueryProps) => {
       .then((data) => setSearchResults(data.data.slice(0, 15)))
       .catch((error) => setSearchResults([]))
       .finally(() => setLoading(false))
-  }, [set, search, setSearchResults, setLoading])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [set, search])
 
   useEffect(() => {
     if (timeoutRef.current !== null) {
