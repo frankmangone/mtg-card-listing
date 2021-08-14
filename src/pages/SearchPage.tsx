@@ -11,10 +11,11 @@ import { SearchResultsList } from "./components/search/SearchResultsList"
 
 // Hooks
 import { useState } from "react"
+import { useLocalStorageState } from "../hooks/useLocalStorageState"
 import { useScryfallQuery } from "../hooks/useScryfallQuery"
 
 export const SearchPage: React.FC = () => {
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useLocalStorageState("searchPageSearchString", "")
   const [searchResults, setSearchResults] = useState([])
   const [loading, setLoading] = useState(false)
   const [set, setSet] = useState<string | undefined>(undefined)

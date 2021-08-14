@@ -57,6 +57,7 @@ export const Select = <T extends string | number>(props: ISelectProps<T>) => {
     // Save ref to rendered Select component
     selectRef.current = document.getElementById(id.current)
 
+    return () => window.removeEventListener("click", clickOutsideHandler, true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
