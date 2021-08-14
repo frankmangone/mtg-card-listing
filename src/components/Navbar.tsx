@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 // Hooks
 import { useAuthState } from "react-firebase-hooks/auth"
-import { useFirebase } from "../context/FirebaseContext"
+import { useFirebase, useUser } from "../context/FirebaseContext"
 import { useHistory } from "react-router-dom"
 
 export const Navbar: React.FC = () => {
@@ -101,12 +101,10 @@ interface ISignedOutNavbarProps {
 }
 
 const SignedOutNavbar: React.FC<ISignedOutNavbarProps> = (props) => {
-  const { auth } = props
+  const { signInWithGoogle } = useUser()
 
-  const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    provider.setCustomParameters({ prompt: "select_account" })
-    auth.signInWithPopup(provider)
+  const handleSignInClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    signInWithGoogle()
   }
 
   return (
@@ -115,7 +113,7 @@ const SignedOutNavbar: React.FC<ISignedOutNavbarProps> = (props) => {
         <p>Guest</p>
         <Link to="/search">Find cards</Link>
       </LeftContent>
-      <NavbarLink onClick={signInWithGoogle}>Sign in</NavbarLink>
+      <NavbarLink onClick={handleSignInClick}>Sign in</NavbarLink>
     </>
   )
 }

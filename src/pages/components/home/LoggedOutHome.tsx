@@ -2,15 +2,14 @@ import styled from "styled-components"
 import { HomeOptionsWrapper } from "./HomeOptions"
 import { FaUser } from "react-icons/fa"
 import firebase from "firebase/app"
-import { useFirebase } from "../../../context/FirebaseContext"
+import { useFirebase, useUser } from "../../../context/FirebaseContext"
 
 export const LoggedOutHome = () => {
   const { auth } = useFirebase()
+  const { signInWithGoogle } = useUser()
 
-  const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    provider.setCustomParameters({ prompt: "select_account" })
-    auth.signInWithPopup(provider)
+  const handleSignInClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    signInWithGoogle()
   }
 
   return (
@@ -22,7 +21,7 @@ export const LoggedOutHome = () => {
       </p>
       <p>Let's get started!</p>
       <HomeOptionsWrapper>
-        <SigninButton onClick={signInWithGoogle}>
+        <SigninButton onClick={handleSignInClick}>
           <FaUser size={20} />
           <h3>Sign in with google</h3>
         </SigninButton>
