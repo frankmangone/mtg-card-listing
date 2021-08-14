@@ -18,7 +18,10 @@ export const SearchPage: React.FC = () => {
   const [search, setSearch] = useLocalStorageState("searchPageSearchString", "")
   const [searchResults, setSearchResults] = useState([])
   const [loading, setLoading] = useState(false)
-  const [set, setSet] = useState<string | undefined>(undefined)
+  const [set, setSet] = useLocalStorageState<string | undefined>(
+    "searchPageSet",
+    undefined
+  )
   const [imagePreviewUrl, setImagePreviewUrl] = useState("")
 
   useScryfallQuery({
