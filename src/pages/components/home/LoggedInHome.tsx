@@ -1,4 +1,3 @@
-import styled from "styled-components"
 import { HomeOptionsWrapper, HomeOptionButton } from "./HomeOptions"
 import { FaSearch, FaBars } from "react-icons/fa"
 

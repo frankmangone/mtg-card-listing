@@ -1,6 +1,5 @@
 // Packages
 import styled from "styled-components"
-import firebase from "firebase/app"
 import { Link } from "react-router-dom"
 
 // Hooks

@@ -1,11 +1,9 @@
 import styled from "styled-components"
 import { HomeOptionsWrapper } from "./HomeOptions"
 import { FaUser } from "react-icons/fa"
-import firebase from "firebase/app"
-import { useFirebase, useUser } from "../../../context/FirebaseContext"
+import { useUser } from "../../../context/FirebaseContext"
 
 export const LoggedOutHome = () => {
-  const { auth } = useFirebase()
   const { signInWithGoogle } = useUser()
 
   const handleSignInClick = (event: React.MouseEvent<HTMLButtonElement>) => {
