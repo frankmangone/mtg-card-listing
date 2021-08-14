@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 // Hooks
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useFirebase } from "../context/FirebaseContext"
+import { useHistory } from "react-router-dom"
 
 export const Navbar: React.FC = () => {
   const { auth } = useFirebase()
@@ -72,9 +73,13 @@ interface ISignedInNavbarProps {
 
 const SignedInNavbar: React.FC<ISignedInNavbarProps> = (props) => {
   const { auth, user } = props
+  const history = useHistory()
 
   const signOut = () => {
-    if (auth.currentUser) auth.signOut() // TODO: Firebase object typings?
+    if (auth.currentUser) auth.signOut()
+    history.push({
+      pathname: "/",
+    })
   }
 
   return (
@@ -98,10 +103,19 @@ const SignedOutNavbar: React.FC<ISignedOutNavbarProps> = (props) => {
 
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider()
+    provider.setCustomParameters({ prompt: "select_account" })
     auth.signInWithPopup(provider)
   }
 
-  return <NavbarLink onClick={signInWithGoogle}>Sign In</NavbarLink>
+  return (
+    <>
+      <LeftContent>
+        <p>Guest</p>
+        <Link to="/search">Find cards</Link>
+      </LeftContent>
+      <NavbarLink onClick={signInWithGoogle}>Sign in</NavbarLink>
+    </>
+  )
 }
 
 const NavbarLink = styled.button`
