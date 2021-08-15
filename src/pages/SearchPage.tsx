@@ -16,17 +16,10 @@ import { useScryfallQuery } from "../hooks/useScryfallQuery"
 
 export const SearchPage: React.FC = () => {
   const [search, setSearch] = useLocalStorageState("searchPageSearchString", "")
-  const [searchResults, setSearchResults] = useState([])
-  const [loading, setLoading] = useState(false)
   const [set, setSet] = useState<string | undefined>(undefined)
   const [imagePreviewUrl, setImagePreviewUrl] = useState("")
 
-  useScryfallQuery({
-    set,
-    search,
-    setSearchResults,
-    setLoading,
-  })
+  const { searchResults, loading, error } = useScryfallQuery({ set, search })
 
   return (
     <MainLayout>
@@ -37,7 +30,6 @@ export const SearchPage: React.FC = () => {
             setSearch,
             set,
             setSet,
-            setLoading,
           }}
         />
         <SearchResultsWrapper>
