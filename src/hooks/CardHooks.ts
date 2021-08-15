@@ -58,6 +58,7 @@ interface IOptions {
 
 export const useGetCards = (options?: IOptions) => {
   const limit = options?.limit || 100
+  const searchString = options?.searchString || ""
 
   const { user } = useUser()
   const cardsCollection = useCollection("cards")

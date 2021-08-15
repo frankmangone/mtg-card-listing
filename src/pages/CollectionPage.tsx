@@ -6,7 +6,6 @@ import { MainLayout } from "../layouts/MainLayout"
 
 // Components
 import { CollectionCardListing } from "./components/collection/CollectionCardListing"
-import { UnderConstruction } from "../components/UnderConstruction"
 import { SearchBar } from "../components/SearchBar"
 
 // Hooks
@@ -16,7 +15,7 @@ import { useAuthRequiredRoute } from "../hooks/useAuthRequiredRoute"
 
 export const CollectionPage: React.FC = () => {
   const { user } = useUser()
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState<string>("")
   const [set, setSet] = useState<string | undefined>(undefined)
 
   const authRequiredRoute = useAuthRequiredRoute()
@@ -29,19 +28,18 @@ export const CollectionPage: React.FC = () => {
       {user ? (
         <CollectionListingWrapper>
           {/**
-           * Searchbar under construction because of the need to integrate full-text search
-           * with Elastic or something
-           * https://firebase.google.com/docs/firestore/solutions/search?provider=elastic */}
-          <UnderConstruction>
-            <SearchBar
-              {...{
-                search,
-                setSearch,
-                set,
-                setSet,
-              }}
-            />
-          </UnderConstruction>
+           * Full-text search is not implemented yet because it is a paid service.
+           * For text search, only prefix search is implemented:
+           * https://stackoverflow.com/questions/46568142/google-firestore-query-on-substring-of-a-property-value-text-search
+           *  */}
+          <SearchBar
+            {...{
+              search,
+              setSearch,
+              set,
+              setSet,
+            }}
+          />
           <CollectionCardListing search={search} />
         </CollectionListingWrapper>
       ) : null}
