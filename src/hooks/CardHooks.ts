@@ -138,6 +138,7 @@ export const useSaveCard = () => {
       const success = await cardsCollection.add({
         userId: uid,
         createdAt: firestore.FieldValue?.serverTimestamp() || new Date(),
+        cardTypes: data.typeLine.split(" — ")[0].split(" "),
         ...data,
       })
 
