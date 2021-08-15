@@ -14,12 +14,15 @@ import { Button } from "../../../components/Button"
 import { CollectionCardItem } from "./CollectionCardItem"
 import { LoadSpinner } from "../../../components/LoadSpinner"
 
-// interface ICollectionCardListingProps {
-//   search: string
-// }
+interface ICollectionCardListingProps {
+  search: string
+}
 
-export const CollectionCardListing: React.FC = () => {
+export const CollectionCardListing: React.FC<ICollectionCardListingProps> = (
+  props
+) => {
   const history = useHistory()
+  const { search } = props
   const { cards, loading, error } = useGetCards()
   const { changeCardQuantity } = useChangeCardQuantity()
   const { deleteCard } = useDeleteCard()
