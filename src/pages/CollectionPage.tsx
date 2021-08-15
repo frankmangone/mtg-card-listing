@@ -6,18 +6,18 @@ import { MainLayout } from "../layouts/MainLayout"
 
 // Components
 import { CollectionCardListing } from "./components/collection/CollectionCardListing"
-import { UnderConstruction } from "../components/UnderConstruction"
 import { SearchBar } from "../components/SearchBar"
 
 // Hooks
 import { useEffect, useState } from "react"
 import { useUser } from "../context/FirebaseContext"
 import { useAuthRequiredRoute } from "../hooks/useAuthRequiredRoute"
+import { useScryfallQuery } from "../hooks/useScryfallQuery"
 
 export const CollectionPage: React.FC = () => {
   const { user } = useUser()
-  const [search, setSearch] = useState("")
-  const [set, setSet] = useState<string | undefined>(undefined)
+  const [search, setSearch] = useState<string>("")
+  const { searchResults } = useScryfallQuery({ search })
 
   const authRequiredRoute = useAuthRequiredRoute()
   useEffect(() => {
@@ -28,21 +28,14 @@ export const CollectionPage: React.FC = () => {
     <MainLayout>
       {user ? (
         <CollectionListingWrapper>
-          {/**
-           * Searchbar under construction because of the need to integrate full-text search
-           * with Elastic or something
-           * https://firebase.google.com/docs/firestore/solutions/search?provider=elastic */}
-          <UnderConstruction>
-            <SearchBar
-              {...{
-                search,
-                setSearch,
-                set,
-                setSet,
-              }}
-            />
-          </UnderConstruction>
-          <CollectionCardListing search={search} />
+          <SearchBar
+            {...{
+              search,
+              setSearch,
+              noSets: true,
+            }}
+          />
+          <CollectionCardListing search={searchResults} />
         </CollectionListingWrapper>
       ) : null}
     </MainLayout>
