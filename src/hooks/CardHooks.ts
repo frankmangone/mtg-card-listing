@@ -15,6 +15,8 @@ import {
   Ownership,
 } from "../types/Card"
 
+import { ISearchResult } from "../types/SearchResult"
+
 /**
  * Gets a single card document
  * @param id
@@ -52,17 +54,17 @@ export const useGetCard = (id: string) => {
  */
 
 interface IOptions {
-  searchString?: string
+  cards?: ISearchResult[]
   limit?: number
 }
 
 export const useGetCards = (options?: IOptions) => {
   const limit = options?.limit || 100
-  // const searchString = options?.searchString || ""
+  const searchedCards = options?.cards?.map((c) => c.name)
 
   /**
    * Full-text search is not implemented yet because it is a paid service.
-   * For text search, only prefix search is implemented:
+   * For text search, only prefix search is implemented in Firebase:
    * https://stackoverflow.com/questions/46568142/google-firestore-query-on-substring-of-a-property-value-text-search
    *
    * Using full-text search engines costs:
@@ -72,20 +74,33 @@ export const useGetCards = (options?: IOptions) => {
    *    - Algolia
    *    - Typesense: minimum ~20 USD / month: https://cloud.typesense.org/pricing/calculator
    *
-   *
    * See this example for integration:
    * https://www.youtube.com/watch?v=sSDHdWrSqLY
+   *
+   * ** For this reason, the scryfall is first queried for it's results (full text search),
+   * and then those results are queried against Firebase
    * */
 
   const { user } = useUser()
   const cardsCollection = useCollection("cards")
-  const query = cardsCollection
-    .orderBy("createdAt", "desc")
-    .limit(limit)
-    .where("userId", "==", user?.uid)
+  let query
+
+  if (!searchedCards) {
+    query = cardsCollection
+      .orderBy("createdAt", "desc")
+      .limit(limit)
+      .where("userId", "==", user?.uid)
+  } else if (searchedCards.length !== 0) {
+    query = cardsCollection
+      .orderBy("createdAt", "desc")
+      .limit(limit)
+      .where("userId", "==", user?.uid)
+      .where("name", "in", searchedCards.slice(0, 9))
+  } else {
+    query = cardsCollection.where("userId", "==", "")
+  }
 
   const [cards, loading, error] = useCollectionData(query, { idField: "id" })
-
   return { cards, loading, error }
 }
 

@@ -11,7 +11,7 @@ import { ISearchResult } from "../../../types/SearchResult"
 interface ISearchResultsListProps {
   loading: boolean
   search: string
-  searchResults: ISearchResult[]
+  searchResults?: ISearchResult[]
   setImagePreviewUrl: React.Dispatch<string>
 }
 
@@ -28,17 +28,17 @@ export const SearchResultsList: React.FC<ISearchResultsListProps> = (props) => {
       )}
 
       {/* Show message before searching */}
-      {search === "" && searchResults.length === 0 && (
+      {!searchResults && (
         <Message>Search for cards to add to your collection</Message>
       )}
 
       {/* Show message when no matching results */}
-      {search !== "" && !loading && searchResults.length === 0 && (
+      {search !== "" && !loading && searchResults?.length === 0 && (
         <Message>No matching results</Message>
       )}
 
       {/* Show results */}
-      {searchResults.map((searchResult) => {
+      {searchResults?.map((searchResult) => {
         return (
           <SearchResultItem
             key={searchResult.id}

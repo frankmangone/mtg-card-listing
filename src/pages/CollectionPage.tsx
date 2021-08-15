@@ -9,31 +9,21 @@ import { CollectionCardListing } from "./components/collection/CollectionCardLis
 import { SearchBar } from "../components/SearchBar"
 
 // Hooks
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { useUser } from "../context/FirebaseContext"
 import { useAuthRequiredRoute } from "../hooks/useAuthRequiredRoute"
+import { useScryfallQuery } from "../hooks/useScryfallQuery"
 
 export const CollectionPage: React.FC = () => {
   const { user } = useUser()
   const [set, setSet] = useState<string | undefined>(undefined)
   const [search, setSearch] = useState<string>("")
-  const [debouncedSearch, setDebouncedSearch] = useState<string>("")
-  const searchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const { searchResults, loading, error } = useScryfallQuery({ set, search })
 
   const authRequiredRoute = useAuthRequiredRoute()
   useEffect(() => {
     authRequiredRoute()
   }, [authRequiredRoute])
-
-  // Search debounce
-  useEffect(() => {
-    if (searchTimeout.current !== null) clearTimeout(searchTimeout.current)
-    searchTimeout.current = setTimeout(() => {
-      clearTimeout(searchTimeout.current as ReturnType<typeof setTimeout>)
-      searchTimeout.current = null
-      setDebouncedSearch(search)
-    }, 500)
-  }, [search])
 
   return (
     <MainLayout>
@@ -47,7 +37,7 @@ export const CollectionPage: React.FC = () => {
               setSet,
             }}
           />
-          <CollectionCardListing search={debouncedSearch} />
+          <CollectionCardListing search={searchResults} />
         </CollectionListingWrapper>
       ) : null}
     </MainLayout>

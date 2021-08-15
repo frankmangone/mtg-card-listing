@@ -14,16 +14,19 @@ import { Button } from "../../../components/Button"
 import { CollectionCardItem } from "./CollectionCardItem"
 import { LoadSpinner } from "../../../components/LoadSpinner"
 
+// Types
+import { ISearchResult } from "../../../types/SearchResult"
+
 interface ICollectionCardListingProps {
-  search: string
+  search?: ISearchResult[]
 }
 
 export const CollectionCardListing: React.FC<ICollectionCardListingProps> = (
   props
 ) => {
   const history = useHistory()
-  const { search } = props
-  const { cards, loading, error } = useGetCards()
+  const { search } = props // Scryfall results
+  const { cards, loading, error } = useGetCards({ cards: search })
   const { changeCardQuantity } = useChangeCardQuantity()
   const { deleteCard } = useDeleteCard()
 
@@ -37,7 +40,7 @@ export const CollectionCardListing: React.FC<ICollectionCardListingProps> = (
       )}
 
       {/* If no cards are found, show that info to user */}
-      {cards && cards?.length === 0 && (
+      {!search && cards && cards?.length === 0 && (
         <NoDataContainer>
           <p>You have no cards in your collection</p>
           <Button
@@ -47,6 +50,14 @@ export const CollectionCardListing: React.FC<ICollectionCardListingProps> = (
           >
             Add cards
           </Button>
+        </NoDataContainer>
+      )}
+
+      {/* If no cards are found with a specific search */}
+      {search && cards && cards?.length === 0 && (
+        <NoDataContainer>
+          <p>No matching results</p>
+          <span>If results should be found, try a more specific search</span>
         </NoDataContainer>
       )}
 
@@ -111,9 +122,15 @@ const NoDataContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
+  text-align: center;
 
   p {
     color: var(--color-grey);
+  }
+
+  span {
+    color: var(--color-grey);
+    font-style: italic;
   }
 `
 
