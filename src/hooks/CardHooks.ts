@@ -58,7 +58,24 @@ interface IOptions {
 
 export const useGetCards = (options?: IOptions) => {
   const limit = options?.limit || 100
-  const searchString = options?.searchString || ""
+  // const searchString = options?.searchString || ""
+
+  /**
+   * Full-text search is not implemented yet because it is a paid service.
+   * For text search, only prefix search is implemented:
+   * https://stackoverflow.com/questions/46568142/google-firestore-query-on-substring-of-a-property-value-text-search
+   *
+   * Using full-text search engines costs:
+   *  - A base for the Blaze plan in Firebase: https://firebase.google.com/pricing?authuser=0
+   *  - A fee for the engine usage:
+   *    - Elastic: minimum 16 USD / month: https://www.elastic.co/es/pricing/
+   *    - Algolia
+   *    - Typesense: minimum ~20 USD / month: https://cloud.typesense.org/pricing/calculator
+   *
+   *
+   * See this example for integration:
+   * https://www.youtube.com/watch?v=sSDHdWrSqLY
+   * */
 
   const { user } = useUser()
   const cardsCollection = useCollection("cards")
