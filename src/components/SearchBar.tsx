@@ -13,12 +13,13 @@ interface ISearchBarProps {
   search: string
   setSearch: React.Dispatch<string>
   set?: string
+  noSets?: boolean
   setSet?: React.Dispatch<string | undefined>
   setLoading?: React.Dispatch<boolean>
 }
 
 export const SearchBar: React.FC<ISearchBarProps> = (props) => {
-  const { set, setSet, search, setSearch, setLoading } = props
+  const { set, setSet, search, setSearch, setLoading, noSets } = props
   const { sets } = useSets()
 
   // TODO: Rename "set" to something less confusing
@@ -52,12 +53,14 @@ export const SearchBar: React.FC<ISearchBarProps> = (props) => {
 
   return (
     <SearchInputWrapper>
-      <Select<string>
-        initialValue={setOption(set)}
-        selectOptions={setNames}
-        defaultDisplayValue={"Set..."}
-        onSelectionChange={handleSetChange}
-      ></Select>
+      {!noSets && (
+        <Select<string>
+          initialValue={setOption(set)}
+          selectOptions={setNames}
+          defaultDisplayValue={"Set..."}
+          onSelectionChange={handleSetChange}
+        ></Select>
+      )}
       <FaSearch />
       <SearchInput value={search} onChange={handleSearchChange} />
     </SearchInputWrapper>

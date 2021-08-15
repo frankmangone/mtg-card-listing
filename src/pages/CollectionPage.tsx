@@ -16,9 +16,8 @@ import { useScryfallQuery } from "../hooks/useScryfallQuery"
 
 export const CollectionPage: React.FC = () => {
   const { user } = useUser()
-  const [set, setSet] = useState<string | undefined>(undefined)
   const [search, setSearch] = useState<string>("")
-  const { searchResults, loading, error } = useScryfallQuery({ set, search })
+  const { searchResults } = useScryfallQuery({ search })
 
   const authRequiredRoute = useAuthRequiredRoute()
   useEffect(() => {
@@ -33,8 +32,7 @@ export const CollectionPage: React.FC = () => {
             {...{
               search,
               setSearch,
-              set,
-              setSet,
+              noSets: true,
             }}
           />
           <CollectionCardListing search={searchResults} />

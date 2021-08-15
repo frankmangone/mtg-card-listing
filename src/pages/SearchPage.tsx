@@ -19,7 +19,7 @@ export const SearchPage: React.FC = () => {
   const [set, setSet] = useState<string | undefined>(undefined)
   const [imagePreviewUrl, setImagePreviewUrl] = useState("")
 
-  const { searchResults, loading, error } = useScryfallQuery({
+  const { searchResults, loading } = useScryfallQuery({
     set,
     search,
     uniques: true,
